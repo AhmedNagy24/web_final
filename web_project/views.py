@@ -10,3 +10,6 @@ def project_select(request):
 def edit_page(request):
     return render(request, "edit.html")
 
+
+def update_stud(request):
+    return None
