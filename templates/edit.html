@@ -19,19 +19,15 @@
             <li><a href="searchstudent.html">Find Student</a></li>
             <li><a href="edit.html" class="active">Edit or delete student</a></li>
         </ul>
-        <ul class = "navigation-menu">
-            <div style=" display: inline-block;
-            margin-left:-50px;
-            ">
-                <li><a href="loginpage.html">sign out</a></li>
-                <li> <img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30" height="30"></li>
-            </div>
+        <ul class = "navigation-menu" style="display:inline-block;margin-left:-50px;">
+            <li><a href="loginpage.html">sign out</a></li>
+            <li> <img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30" height="30"></li>
         </ul>
     </div>
 </header>
-<center>
-    <img src="{% static 'image/generic_logo.png' %}" height="150" width="500"/>
-</center>
+<div style="text-align: center;">
+    <img src="{% static 'image/generic_logo.png' %}" height="150" width="500" alt="logo"/>
+</div>
 <h1 class="page-name">Edit student information</h1>
 <div id="msg-container"></div>
 <div class="container">
