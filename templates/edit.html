@@ -12,12 +12,12 @@
 <header>
     <div class="navigation-bar">
         <ul class="navigation-menu">
-            <li><a href="mainpage.html">Main Page</a> </li>
-            <li><a href="AddStudent.html">Register</a></li>
-            <li><a href="view all students.html">View Students</a></li>
-            <li><a href="department_assign.html">Register department</a></li>
-            <li><a href="searchstudent.html">Find Student</a></li>
-            <li><a href="edit.html" class="active">Edit or delete student</a></li>
+            <li><a href="{% url 'main' %}">Main Page</a> </li>
+            <li><a href="{% url 'add' %}">Register</a></li>
+            <li><a href="{% url 'view' %}">View Students</a></li>
+            <li><a href="{% url 'depart' %}">Register department</a></li>
+            <li><a href="{% url 'search' %}">Find Student</a></li>
+            <li><a href="{% url 'edit' %}" class="active">Edit or delete student</a></li>
         </ul>
         <ul class = "navigation-menu" style="display:inline-block;margin-left:-50px;">
             <li><a href="loginpage.html">sign out</a></li>

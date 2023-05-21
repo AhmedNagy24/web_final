@@ -12,8 +12,6 @@ def home(request):
     return render(request, "ProjectSelection.html")
 
 
-
-
 def log_user(request):
     if request.method == 'POST':
         username = request.POST['Username']
@@ -29,5 +27,27 @@ def log_user(request):
         return render(request, 'loginpage.html')
 
 
-def mainp(request):
+def main_page(request):
     return render(request, "mainpage.html")
+
+
+def update_student(request):
+    return render(request, "edit.html")
+
+
+def add_student(request):
+    return render(request, "AddStudent.html")
+
+
+def depart_assign(request):
+    return render(request, "department_assign.html")
+
+
+def search_student(request):
+    return render(request, "searchstudent.html")\
+
+
+
+def view_students(request):
+    return render(request, "view all students.html")
+
