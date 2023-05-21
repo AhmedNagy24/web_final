@@ -5,44 +5,8 @@
     <meta charset="UTF-8"/>
     <title>AddStudent</title>
     <meta name="description" content="This is the registration page of the student affair site"/>
-    <link rel="stylesheet" href="layout.css">
-</head>
-<body>
-<header>
-    <div class="navigation-bar">
-        <ul class="navigation-menu">
-            <li><a href="loginpage.html">Student Affairs</a></li>
-            <li><a href="">Human Resources Website</a></li>
-            <li><a href="">Higher studies website</a></li>
-            <li><a href="">Laboratory tracking website</a></li>
-        </ul>
-    </div>
-</header>
-<center>
-    <h1>Wep Application company</h1>
-    <h2>Choose any Site from the navigation to View it</h2>
-</center>
-<div class="container">
-  <div class="box">
-    <h3>Student Affairs Website</h3>
-    <p>This website provides students with access to a wide range of resources and services including academic advising, financial aid, registration, and much more.</p>
-  </div>
-  
-  <div class="box">
-    <h3>Human Resources Website</h3>
-    <p>This website provides information and resources for employees regarding benefits, payroll, policies, and more.</p>
-  </div>
-  
-  <div class="box">
-    <h3>Higher Studies Website</h3>
-    <p>This website provides information about graduate programs, research opportunities, and academic resources for students interested in pursuing advanced degrees.</p>
-  </div>
-  
-  <div class="box">
-    <h3>Laboratory Tracking Website</h3>
-    <p>This website provides a platform for researchers and laboratory staff to manage experiments, track inventory, and collaborate on projects.</p>
-  </div>
-</div>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
     <style>
         .container {
     display: flex;
@@ -72,5 +36,43 @@
     line-height: 1.5;
     }
 </style>
+</head>
+<body>
+<header>
+    <div class="navigation-bar">
+        <ul class="navigation-menu">
+            <li><a href="loginpage.html">Student Affairs</a></li>
+            <li><a href="">Human Resources Website</a></li>
+            <li><a href="">Higher studies website</a></li>
+            <li><a href="">Laboratory tracking website</a></li>
+        </ul>
+    </div>
+
+</header>
+<center>
+    <h1>Wep Application company</h1>
+    <h2>Choose any Site from the navigation to View it</h2>
+</center>
+<div class="container">
+  <div class="box">
+    <h3>Student Affairs Website</h3>
+    <p>This website provides students with access to a wide range of resources and services including academic advising, financial aid, registration, and much more.</p>
+  </div>
+  
+  <div class="box">
+    <h3>Human Resources Website</h3>
+    <p>This website provides information and resources for employees regarding benefits, payroll, policies, and more.</p>
+  </div>
+  
+  <div class="box">
+    <h3>Higher Studies Website</h3>
+    <p>This website provides information about graduate programs, research opportunities, and academic resources for students interested in pursuing advanced degrees.</p>
+  </div>
+  
+  <div class="box">
+    <h3>Laboratory Tracking Website</h3>
+    <p>This website provides a platform for researchers and laboratory staff to manage experiments, track inventory, and collaborate on projects.</p>
+  </div>
+</div>
 </body>
 </html>
