@@ -3,5 +3,10 @@ from django.shortcuts import render
 # Create your views here.
 
 
-def home(request):
+def project_select(request):
     return render(request, "ProjectSelection.html")
+
+
+def edit_page(request):
+    return render(request, "edit.html")
+
