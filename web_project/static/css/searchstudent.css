@@ -1,0 +1,300 @@
+header{
+    background-color: darkturquoise;
+    padding: 5px;
+}
+body{
+    margin: 0;
+    background-color: white;
+    color: #485e74;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.site-name{
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+.page-name{
+    margin-left: 20px;
+}
+.navigation-bar{
+    background-color: #33a499;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Century Gothic";
+    background-color: darkturquoise;
+}
+.navigation-menu {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.navigation-menu li {
+    display: inline-block;
+}
+.navigation-menu li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.navigation-menu li a:hover {
+    background-color: whitesmoke;
+    border-radius: 0.5em;
+    color: darkturquoise;
+}
+
+/* Change background color of active page */
+.navigation-menu li a.active {
+    background-color: whitesmoke;
+    border-radius: 0.5em;
+    color: #33a499;}
+
+.container1{
+    position: relative;
+    margin-bottom: 180px;
+}
+
+.user_input{
+    position: absolute;
+    margin: 50px 50px;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+.user_input .label{
+    position: absolute;
+    right: 50px;
+    left: 50px;
+}
+.user_input #GID{
+    position: absolute;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: lighter;
+    font-family: "Century Gothic";
+    border-color: darkgrey;
+    width: 165px;
+    height: 150%;
+    right: 50px;
+    left: -4px;
+    bottom: -39px;
+    border: 0.1px solid
+}
+
+.user_button{
+    position: absolute;
+    margin: 50px 50px;
+    left: 300px;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+.user_button #btn1{
+    color: white;
+    position: absolute;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: bold;
+    font-family: "Century Gothic";
+    border-color: white;
+    width: 114px;
+    height: 33px;
+    right: 0%;
+    bottom: -57px;
+    background-color: rgb(18, 157, 232);;
+    border: 0.0px solid white;
+    cursor: pointer;
+    transition: 0.45s;
+}
+.user_button #btn1:hover{
+    background-color: darkturquoise;
+    color: white;
+    border: 0px;
+}
+.container{
+    padding: 25px 25px;
+    bottom: 12px;
+    background-color: lightgray;
+    margin: 25px 25px;
+    border-radius: 5px;
+}
+.container2{
+    padding: 20px 20px;
+    box-shadow: 0 0 20px rgba(72, 94, 116, 0.7);
+    margin: 20px 35px;
+}
+.container .f_n{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .f_n .label{
+
+}
+
+.container .f_n #fullname{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .i_d{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .i_d .label{
+
+}
+
+.container .i_d #ident{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .gpa{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .gpa .label{
+
+}
+
+.container .gpa #GPA{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .b_d{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .b_d .label{
+
+}
+
+.container .b_d #BD{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .stat{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .stat.label{
+
+}
+
+.container .stat #state{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .dpt{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .dpt .label{
+
+}
+
+.container .dpt #dept{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .cntct{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .cntct .label{
+
+}
+
+.container .cntct #contact{
+border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    border-radius: 5px;
+    font-family: "Century Gothic";
+
+}
+
+.container .eml{
+margin: 20px 15px;
+position: relative;
+font-family: "Century Gothic";
+font-size: 1em;
+}
+.container .eml .label{
+}
+
+.container .eml #email{
+    border-radius: 5px;
+    border: black;
+width: 350px;
+position: absolute;
+left: 170px;
+height: 20px;
+    font-family: "Century Gothic";
+}
+
+
+
+
+

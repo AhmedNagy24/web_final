@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="You can edit student information or delete students using this page.">
+    <title>Edit student info</title>
+    <link rel="stylesheet" href="layout.css">
+</head>
+<body>
+<header>
+    <div class="navigation-bar">
+        <ul class="navigation-menu">
+            <li><a href="mainpage.html">Main Page</a> </li>
+            <li><a href="AddStudent.html">Register</a></li>
+            <li><a href="view all students.html">View Students</a></li>
+            <li><a href="department_assign.html">Register department</a></li>
+            <li><a href="searchstudent.html">Find Student</a></li>
+            <li><a href="edit.html" class="active">Edit or delete student</a></li>
+        </ul>
+        <ul class = "navigation-menu">
+            <div style=" display: inline-block;
+            margin-left:-50px;
+            ">
+                <li><a href="loginpage.html">sign out</a></li>
+                <li> <img src="istockphoto-1209654046-612x612.jpg" alt="avatar" width="30" height="30"></li>
+            </div>
+        </ul>
+    </div>
+</header>
+<center>
+    <img src="generic_logo.png" height="150" width="500"/></header>
+</center>
+<h1 class="page-name">Edit student information</h1>
+<div id="msg-container"></div>
+<div class="container">
+
+    <h2>Enter ID to search for the student</h2>
+    <form id="search-form" style="background-color: white">
+        <div style="display: inline-block">
+            <label id="idNum-label" for="idNum"><b>ID</b></label>
+            <input id="idNum" type="number" min="1" required placeholder = "ENTER STUDENT ID">
+            <input type="submit" value="SEARCH" id="search">
+        </div>
+    </form><br>
+<div>
+    <h2>Student information</h2>
+    <p>If the student is found, You can select any field and edit it then click submit to save changes, reset to revert changes, or delete to remove student.</p>
+    <form action="" target="_blank" id="form">
+        <div class="form-line">
+            <div>
+                <label for="fname">FirstName</label>
+                <input type="text" name="firstname" id="fname" placeholder="FirstName" required>
+            </div>
+            <div>
+                <label for="lname">LastName</label>
+                <input type="text" name="lastname" id="lname" placeholder="LastName" required >
+            </div>
+        </div>
+
+        <div class="form-line">
+            <div>
+                <div id="id-alert"></div>
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id" placeholder="ID" required >
+            </div>
+            <div>
+                <label for="email">Email</label >
+                <input type="email" name="email" id="email" placeholder="johnDoe@example.com" required>
+            </div>
+        </div>
+        <div class="form-line">
+            <div>
+                <div id="phone-alert"></div>
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" placeholder="Phone" required>
+            </div>
+            <div>
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-line">
+            <div>
+                <label for="level">Level</label >
+                <select name="level" id="level" required>
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                    <option value="4">Level 4</option>
+                </select>
+            </div>
+            <div>
+                <label for="department">Department</label>
+                <select name="department" id="department" disabled>
+                    <option value="null">not assigned</option>
+                    <option value="IS">IS</option>
+                    <option value="CS">CS</option>
+                    <option value="AI">AI</option>
+                    <option value="IT">IT</option>
+                    <option value="DS">DS</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-line">
+            <div>
+                <label for="status">Status</label>
+                <select name="status" id="status" required>
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
+                </select>
+            </div>
+            <div>
+                <label for="GPA">GPA</label>
+                <input type="text" name="GPA" id="GPA" placeholder="GPA" >
+            </div>
+        </div>
+
+        <div class="form-line">
+            <label for="birth">BirthDate</label>
+            <input type="date" name="birthdate" id="birth" placeholder="BirthDate" required >
+        </div>
+        <div class="form-line">
+            <input type="submit" value="Submit">
+            <input type="reset" value="reset">
+            <input type="button" class="delete-button" id="delete-student" value="Delete">
+        </div>
+        <br>
+    </form>
+</div>
+</div>
+<script src="editAndDelete.js"></script>
+</body>
+</html>
