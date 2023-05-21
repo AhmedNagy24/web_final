@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>student affairs</title>
     <meta name="description" content="student affairs website">
-    <link rel="stylesheet" href="layout.css">
+ {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
 </head>
 <body>
 <header>
@@ -22,14 +24,14 @@
             <div style=" display: inline-block;
             margin-left:-50px;
             ">
-                <li><a href="loginpage.html">sign out</a></li>
-                <li> <img src="istockphoto-1209654046-612x612.jpg" alt="avatar" width="30" height="30"></li>
+                <li><a href="{% url 'login' %}">sign out</a></li>
+                <li> <img src={% static 'images/istockphoto-1209654046-612x612.jpg'%} alt="avatar" width="30" height="30"></li>
             </div>
         </ul>
     </div>
 </header>
 <center>
-    <img src="generic_logo.png" height="150" width="500"/></header>
+    <img src={% static 'images/generic_logo.png'%} height="150" width="500"/></header>
 </center>
 <h1 class="page-name">Main page</h1>
 <div class="container">

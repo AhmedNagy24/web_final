@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <meta name="description" content="student affairs website">
-    <link rel="stylesheet" href="log.css">
-    <link rel="stylesheet" href="layout.css">
+ {% load static %}
+    <link rel="stylesheet" href="{% static 'css/log.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
 
 </head>
 <body>
@@ -14,9 +15,24 @@
     <header>
         <h2 class="site-name">Student affairs</h2>
     </header>
+
+    <div class="containmsg" style="background-color: red">
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+
+            {% endfor%}
+
+         {% endif %}
+
+    {% block content%}
+    {% endblock%}
+
+    </div>
         <div class="boxo">
             <h1>Login</h1>
-            <form action="mainpage.html">
+            <form method="POST" id="frm">
+                {% csrf_token %}
                 <label for="text">Username</label>
                     <input type="text" placeholder="Enter Username" name="Username">
 
