@@ -1,4 +1,18 @@
 const search = document.getElementById("search-form")
+let student;
+$(document).on('submit', '#search-form', function (e){
+    e.preventDefault()
+    $.ajax({
+        type:'GET',
+        url:'update-student',
+        data:{
+            idNum: $('#idNum')
+        },
+        success: function (response) {
+
+        }
+    })
+})
 // add event listener to this button
 search.addEventListener('submit', (e)=> {
     e.preventDefault();
