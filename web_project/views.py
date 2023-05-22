@@ -44,7 +44,7 @@ def depart_assign(request):
 
 
 def search_student(request):
-    return render(request, "searchstudent.html")\
+    return render(request, "searchstudent.html")
 
 
 
