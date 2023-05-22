@@ -10,4 +10,5 @@ urlpatterns = [
     path('view-students/', views.view_students, name="view"),
     path('add-student', views.add_student, name="add"),
     path('depart-assign/', views.depart_assign, name="depart"),
+    path('get_data/', views.get_data, name='get_data'),
 ]

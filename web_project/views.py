@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import response
-from web_project.models import  Student
+from web_project.models import Student
+
 
 
 # Create your views here.
@@ -73,5 +74,10 @@ def search_student(request):
 
 
 def view_students(request):
-    return render(request, "view all students.html")
+    return render(request, 'view all students.html')
+
+def get_data(request):
+    data = Student.objects.all().values()  # Retrieve all objects and their values
+    return JsonResponse(list(data), safe=False)
+
 
