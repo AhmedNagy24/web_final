@@ -1,10 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STUDENT AFFAIRS</title>
-    <link rel="stylesheet" href="searchstudent.css">
+    <link rel="stylesheet" href="{% static 'css/searchstudent.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+
 
 
 <body>
@@ -22,14 +25,14 @@
         <div style=" display: inline-block;
             margin-left:-50px;
             ">
-            <li><a href="loginpage.html">sign out</a></li>
-            <li> <img src="istockphoto-1209654046-612x612.jpg" alt="avatar" width="30" height="30"></li>
+            <li><a href="{% url 'login' %}">sign out</a></li>
+            <li> <img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30" height="30"></li>
         </div>
     </ul>
 </div>
 </header>
 <center>
-    <img src="generic_logo.png" height="150" width="500"/></header>
+    <img src="{% static 'image/generic_logo.png' %}" height="150" width="500"/></header>
 </center>
 <div id="errf" hidden></div>
 <h1 class="page-name">Search for students</h1>
@@ -38,7 +41,7 @@
     <form>
         <div class="user_input">
             <label for="GID"><b>ID</b></label>
-            <input id="GID" type="text" required placeholder = "ENTER STUDENT ID">
+            <input id="GID" type="text" name="q" required placeholder = "ENTER STUDENT ID">
         </div>
         <div class="user_button">
             <button id="btn1">Search</button>
@@ -82,9 +85,10 @@
     </form>
 </div>
 </div>
-<script src="searchstudent.js"></script>
+<script src="{% static 'js/searchstudent.js' %}"></script>
 </body>
 </html>
+
 
 
 

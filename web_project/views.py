@@ -69,7 +69,9 @@ def depart_assign(request):
 
 
 def search_student(request):
-    return render(request, "searchstudent.html")
+    if request.method == 'GET':
+        #GID = request.GET.get('q')
+        return render(request, "searchstudent.html")
 
 
 

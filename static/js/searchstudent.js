@@ -1,12 +1,20 @@
 let btn = document.getElementById("btn1");
 let message = document.getElementById("errf");
+const GivenID = document.getElementById("GID").value;
+
+fetch('/get_data/')
+  .then(response => response.json())
+  .then(data => {
+        const Students = data.filter(student => student.id === GivenID);
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error('Error:', error);
+  });
+
+
 btn.addEventListener('click' , (event)=> {
     event.preventDefault();
-    const data1 = localStorage.getItem("allActiveStudents");
-    const data2 = localStorage.getItem("allInActiveStudents");
-    const students1 = JSON.parse(data1);
-    const students2 = JSON.parse(data2);
-    const data3 = students1.concat(students2);
     let found = false;
     document.getElementById("fullname").value =" ";
     document.getElementById("ident").value = " ";
@@ -17,19 +25,17 @@ btn.addEventListener('click' , (event)=> {
     document.getElementById("contact").value = " ";
     document.getElementById("email").value =" ";
 
-    var GivenID = document.getElementById("GID").value;
-
-    data3.forEach(student => {
-        if(student.sID == GivenID)
+    Students.forEach(student => {
+        if(student.id === GivenID)
         {
             document.getElementById("fullname").value =" "+ student.firstName +" "+ student.lastName;
-            document.getElementById("ident").value = " "+student.sID;
-            document.getElementById("GPA").value = " "+student.sGpa;
-            document.getElementById("BD").value =" "+ student.sBirthDate;
-            document.getElementById("state").value =" "+ student.sStatus;
-            document.getElementById("dept").value =  " "+student.sDepartment;
-            document.getElementById("contact").value = " "+student.sPhone;
-            document.getElementById("email").value =" "+ student.sEmail;
+            document.getElementById("ident").value = " "+student.id ;
+            document.getElementById("GPA").value = " "+ student.GPA;
+            document.getElementById("BD").value =" "+ student.birthdate;
+            document.getElementById("state").value =" "+ student.status;
+            document.getElementById("dept").value =  " "+student.department;
+            document.getElementById("contact").value = " "+student.phone;
+            document.getElementById("email").value =" "+ student.email;
             found = true;
         }
     });
