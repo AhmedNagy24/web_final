@@ -8,6 +8,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/AddStudentStyle.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -36,7 +37,8 @@
 <h1 class="page-name">Add new student</h1>
     <div id="message" hidden></div>
     <div class="container">
-        <form action="" target="_blank" id="form">
+        <form  id="form">
+            {% csrf_token %}
             <div class="form-line">
                 <div>
                     <label for="fname">FirstName</label>
@@ -119,6 +121,6 @@
 
         </form>
     </div>
-    <script src="AddStudentScripts.js"></script>
+    <script src="{% static 'js/AddStudentScripts.js' %}"></script>
 </body>
 </html>

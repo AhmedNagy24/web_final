@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import response
+from web_project.models import  Student
 
 
 # Create your views here.
@@ -36,7 +37,30 @@ def update_student(request):
 
 
 def add_student(request):
-    return render(request, "AddStudent.html")
+    if request.method == 'POST':
+        # Retrieve the data sent via AJAX
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        ID = request.POST.get('ID')
+        mail = request.POST.get('mail')
+        phone = request.POST.get('phone')
+        gender = request.POST.get('gender')
+        level = request.POST.get('level')
+        department = request.POST.get('department')
+        status = request.POST.get('status')
+        gpa = request.POST.get('gpa')
+        birth_date = request.POST.get('birth_date')
+
+        if Student.objects.filter(id=ID).exists():
+            return HttpResponse("Error: Student already exists")
+        else:
+            new_student = Student(firstname=first_name, lastname=last_name, id=ID, email=mail, phone=phone,
+                                  gender=gender, level=level, department=department, status=status, GPA=gpa,
+                                  birthdate=birth_date)
+            new_student.save()
+            return HttpResponse("Student added successfully")
+    else:
+        return render(request , 'AddStudent.html')
 
 
 def depart_assign(request):
