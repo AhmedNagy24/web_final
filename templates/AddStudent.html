@@ -5,7 +5,9 @@
     <meta charset="UTF-8"/>
     <title>AddStudent</title>
     <meta name = "description" content = "This is the registration page of the student affair site"/>
-    <link rel="stylesheet" href="/web_final/static/css/AddStudentStyle.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/AddStudentStyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
 </head>
 <body>
 <header>
@@ -22,14 +24,14 @@
             <div style=" display: inline-block;
             margin-left:-50px;
             ">
-                <li><a href="loginpage.html">sign out</a></li>
-                <li> <img src="istockphoto-1209654046-612x612.jpg" alt="avatar" width="30" height="30"></li>
+                <li><a href="{% url 'login' %}">sign out</a></li>
+                <li> <img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30" height="30"></li>
             </div>
         </ul>
     </div>
 </header>
 <center>
-    <img src="generic_logo.png" height="150" width="500"/></header>
+    <img src="{% static 'image/generic_logo.png' %}" height="150" width="500"/>
 </center>
 <h1 class="page-name">Add new student</h1>
     <div id="message" hidden></div>
