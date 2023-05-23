@@ -4,7 +4,7 @@
     <title>Department_assign</title>
     <meta name="description" content="This is the registration page of department of the student affair site"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     {% load static %}
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/department_assign.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
 
@@ -14,96 +14,101 @@
 <header>
     <div class="navigation-bar">
         <ul class="navigation-menu">
-            <li><a href="{% url 'main' %}">Main Page</a> </li>
+            <li><a href="{% url 'main' %}">Main Page</a></li>
             <li><a href="{% url 'add' %}">Register</a></li>
             <li><a href="{% url 'view' %}">View Students</a></li>
             <li><a href="{% url 'depart' %}" class="active">Register department</a></li>
             <li><a href="{% url 'search' %}">Find Student</a></li>
             <li><a href="{% url 'edit' %}">Edit or delete student</a></li>
         </ul>
-        <ul class = "navigation-menu">
+        <ul class="navigation-menu">
             <div style=" display: inline-block;
             margin-left:-50px;
             ">
                 <li><a href="{% url 'login' %}">sign out</a></li>
-              <li> <img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30" height="30"></li>
+                <li><img src="{% static 'image/istockphoto-1209654046-612x612.jpg' %}" alt="avatar" width="30"
+                         height="30"></li>
             </div>
         </ul>
     </div>
 </header>
 <center>
-     <img src="{% static 'image/generic_logo.png' %}" height="150" width="500"/>
+    <img src="{% static 'image/generic_logo.png' %}" height="150" width="500"/>
 </center>
 <h1 class="page-name">Department Selection</h1>
 <div class="container">
 
-<div id="message" hidden style="color: #f2f2f2"></div>
-<div class="Choose">
-    <label for="dept" id="Custom_line_label1">Choose a department:</label>
-    <select id="dept" hidden="hidden">
-        <option id="1St" hidden="hidden" value="AI">AI</option>
-        <option id="2Nd" hidden="hidden" value="CS">CS</option>
-        <option id="3Rd" hidden="hidden" value="IS">IS</option>
-        <option id="4Th" hidden="hidden" value="IT">IT</option>
-        <option id="5Th" hidden="hidden" value="DS">DS</option>
-        <option id="6Th" hidden="hidden" value="no-department">CS</option>
-    </select>
-    <button id="submit_button" type="button" >Submit</button>
+    <div id="message" hidden style="color: #f2f2f2"></div>
+    <div class="Choose">
+        <label for="dept" id="Custom_line_label1">Choose a department:</label>
+        <select id="dept" hidden="hidden">
+            <option id="1St" hidden="hidden" value="AI">AI</option>
+            <option id="2Nd" hidden="hidden" value="CS">CS</option>
+            <option id="3Rd" hidden="hidden" value="IS">IS</option>
+            <option id="4Th" hidden="hidden" value="IT">IT</option>
+            <option id="5Th" hidden="hidden" value="DS">DS</option>
+            <option id="6Th" hidden="hidden" value="no-department">CS</option>
+        </select>
+        <button id="submit_button" type="button">Submit</button>
 
-    <label for="search_bar_assign" id="Custom_line_label2">Filter by ID:</label>
-    <input id="search_bar_assign" type="search" placeholder="ID...">
-    <button id="search_button_assign" type="button">Search</button>
-</div>
-<div class="Table" >
-    <table id="data">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>GPA</th>
-            <th>Status</th>
-            <th id="id">ID</th>
-            <th>Department</th>
-        </tr>
-        </thead>
-        <tbody id="student_data">
+        <label for="search_bar_assign" id="Custom_line_label2">Filter by ID:</label>
+        <input id="search_bar_assign" type="search" placeholder="ID...">
+        <button id="search_button_assign" type="button">Search</button>
+    </div>
+    <div class="Table">
+        <table id="data">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>GPA</th>
+                <th>Status</th>
+                <th id="id">ID</th>
+                <th>Department</th>
+            </tr>
+            </thead>
+            <tbody id="student_data">
 
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 
 
-<div class="Departments">
-    <table class="DEP">
-        <tr>
-            <th>Department</th>
-            <th>Minimum GPA</th>
-        </tr>
-        <tr>
-            <td class="DEP_data">Computer Science (CS)</td>
-            <td class="GPA">3</td>
-        </tr>
-        <tr>
-            <td class="DEP_data" id="custom_line">Information System (IS)</td>
-            <td class="GPA" id="Gpa_custom_line">2.7</td>
-        </tr>
-        <tr id="ai">
-            <td class="DEP_data" >Artificial Intelligence (AI)</td>
-            <td class="GPA">2.5</td>
-        </tr>
-        <tr id="IT">
-            <td class="DEP_data"  >Information Technology (IT)</td>
-            <td class="GPA">2.2</td>
-        </tr>
-        <tr>
-            <td class="DEP_data" id="last_dep">Decision support (DS)</td>
-            <td class="GPA">2</td>
-        </tr>
-        
-        
-    </table>
+    <div class="Departments">
+        <table class="DEP">
+            <tr>
+                <th>Department</th>
+                <th>Minimum GPA</th>
+            </tr>
+            <tr>
+                <td class="DEP_data">Computer Science (CS)</td>
+                <td class="GPA">3</td>
+            </tr>
+            <tr>
+                <td class="DEP_data" id="custom_line">Information System (IS)</td>
+                <td class="GPA" id="Gpa_custom_line">2.7</td>
+            </tr>
+            <tr id="ai">
+                <td class="DEP_data">Artificial Intelligence (AI)</td>
+                <td class="GPA">2.5</td>
+            </tr>
+            <tr id="IT">
+                <td class="DEP_data">Information Technology (IT)</td>
+                <td class="GPA">2.2</td>
+            </tr>
+            <tr>
+                <td class="DEP_data" id="last_dep">Decision support (DS)</td>
+                <td class="GPA">2</td>
+            </tr>
+
+
+        </table>
+    </div>
 </div>
-</div>
-<script src="{% static 'js/department_assign.js' %}"></script>
+<script
+        src="{% static 'js/department_assign.js' %}">
+
+</script>
+
 
 </body>
 </html>
