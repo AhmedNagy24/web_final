@@ -80,4 +80,3 @@ def get_data(request):
     data = Student.objects.all().values()  # Retrieve all objects and their values
     return JsonResponse(list(data), safe=False)
 
-
