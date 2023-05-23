@@ -8,7 +8,7 @@ function search() {
         .then(response => response.json())
         .then(data => {
 
-            const Students = data.filter(student => student.id === GivenID);
+            const student = data.filter(student => student.id === GivenID);
 
             let found = false;
 
@@ -22,14 +22,14 @@ function search() {
             // document.getElementById("email").value = " ";
 
 
-            document.getElementById("fullname").value = " " + student.firstName + " " + student.lastName;
-            document.getElementById("ident").value = " " + student.id;
-            document.getElementById("GPA").value = " " + student.GPA;
-            document.getElementById("BD").value = " " + student.birthdate;
-            document.getElementById("state").value = " " + student.status;
-            document.getElementById("dept").value = " " + student.department;
-            document.getElementById("contact").value = " " + student.phone;
-            document.getElementById("email").value = " " + student.email;
+            document.getElementById("fullname").value = " " + student[0].firstName + " " + student.lastName;
+            document.getElementById("ident").value = " " + student[0].id;
+            document.getElementById("GPA").value = " " + student[0].GPA;
+            document.getElementById("BD").value = " " + student[0].birthdate;
+            document.getElementById("state").value = " " + student[0].status;
+            document.getElementById("dept").value = " " + student[0].department;
+            document.getElementById("contact").value = " " + student[0].phone;
+            document.getElementById("email").value = " " + student[0].email;
 
             found = true;
 
