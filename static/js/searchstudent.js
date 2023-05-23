@@ -22,7 +22,7 @@ function search() {
             // document.getElementById("email").value = " ";
 
 
-            document.getElementById("fullname").value = " " + student[0].firstName + " " + student.lastName;
+            document.getElementById("fullname").value = " " + student[0].firstname + " " + student.lastname;
             document.getElementById("ident").value = " " + student[0].id;
             document.getElementById("GPA").value = " " + student[0].GPA;
             document.getElementById("BD").value = " " + student[0].birthdate;
