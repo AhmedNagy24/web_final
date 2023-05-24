@@ -1,22 +1,23 @@
 let givenID;
+
 function search_student() {
     givenID = document.getElementById("idNum").value;
     fetch('/get_data/')
         .then(response => response.json())
         .then(data => {
             const student = data.filter(student => student['id'] === givenID);
-            let found=true;
-            if (student.length===0){
-                found=false;
+            let found = true;
+            if (student.length === 0) {
+                found = false;
             }
             if (found) {
                 displayInfo(student)
-                if (student[0]['status']==="inactive"){
+                if (student[0]['status'] === "inactive") {
                     disable(true)
                 }
-                printMessage('msg-container','Student found successfully!');
+                printMessage('msg-container', 'Student found successfully!');
             } else {
-                printAlert('msg-container','Student not found!');
+                printAlert('msg-container', 'Student not found!');
             }
         })
         .catch(error => {
@@ -28,16 +29,16 @@ let search_form = document.getElementById('search-form')
 search_form.addEventListener('submit', ev => {
     ev.preventDefault()
     ev.stopPropagation()
-    reset_form()
+    document.getElementById('form').reset()
     search_student()
 })
 
 $(document).on('submit', '#form', function (e) {
     e.preventDefault()
     let num = document.getElementById('phone').value
-    if (!isPhone(num)){
+    if (!isPhone(num)) {
         document.getElementById('phone').focus();
-        printAlert('phone-alert','Error: phone number is invalid!');
+        printAlert('phone-alert', 'Error: phone number is invalid!');
         return
     }
     $.ajax({
@@ -58,22 +59,22 @@ $(document).on('submit', '#form', function (e) {
             old_id: givenID,
             csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
         },
-        success: function (response){
-          if (response==="Student information is updated successfully!"){
-              document.getElementById('idNum').focus();
-              printMessage('msg-container',response);
-              reset_form()
-          }else if (response==="Error: ID already in use! please enter a unique ID"){
-              document.getElementById('id').focus();
-              printAlert('id-alert',response);
-          }
+        success: function (response) {
+            if (response === "Student information is updated successfully!") {
+                document.getElementById('idNum').focus();
+                printMessage('msg-container', response);
+                document.getElementById('form').reset()
+            } else if (response === "Error: ID already in use! please enter a unique ID") {
+                document.getElementById('id').focus();
+                printAlert('id-alert', response);
+            }
         }
     })
 })
-$(document).on('click', '#delete-student', function (e){
+$(document).on('click', '#delete-student', function (e) {
     e.preventDefault()
     let check = confirm("Are sure you want to delete student: " + givenID)
-    if (!check){
+    if (!check) {
         return
     }
     $.ajax({
@@ -84,10 +85,10 @@ $(document).on('click', '#delete-student', function (e){
             csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
         },
         success: function (response) {
-            if (response==="Student deleted successfully!"){
+            if (response === "Student deleted successfully!") {
                 document.getElementById('idNum').focus();
-                printMessage('msg-container','Student deleted successfully!');
-                reset_form()
+                printMessage('msg-container', 'Student deleted successfully!');
+                document.getElementById('form').reset()
             }
         }
     })
@@ -199,50 +200,48 @@ function isPhone(number) {
 }
 
 function displayInfo(st) {
-    document.getElementById('fname').setAttribute('value', st[0]['firstname']);
-    document.getElementById('lname').setAttribute('value', st[0]['lastname']);
-    document.getElementById('id').setAttribute('value', st[0]['id']);
-    document.getElementById('email').setAttribute('value', st[0]['email']);
-    document.getElementById('phone').setAttribute('value', st[0]['phone']);
+    document.getElementById('fname').value = st[0]['firstname'];
+    document.getElementById('lname').value = st[0]['lastname'];
+    document.getElementById('id').value = st[0]['id'];
+    document.getElementById('email').value = st[0]['email'];
+    document.getElementById('phone').value = st[0]['phone'];
+
     let genderList = document.getElementById('gender').children;
     for (let i = 0; i < genderList.length; i++) {
-        genderList[i].selected=false
-    }
-    for (let i = 0; i < genderList.length; i++) {
+        genderList[i].selected = false;
         if (genderList[i].value == st[0]['gender']) {
-            genderList[i].selected = true
+            genderList[i].selected = true;
         }
     }
+
     let levelList = document.getElementById('level').children;
     for (let i = 0; i < levelList.length; i++) {
-        levelList[i].selected=false
-    }
-    for (let i = 0; i < levelList.length; i++) {
+        levelList[i].selected = false;
         if (levelList[i].value == st[0]['level']) {
-            levelList[i].selected = true
+            levelList[i].selected = true;
         }
     }
+
     let departList = document.getElementById('department').children;
     for (let i = 0; i < departList.length; i++) {
-        departList[i].selected=false
-    }
-    for (let i = 0; i < departList.length; i++) {
+        departList[i].selected = false;
         if (departList[i].value == st[0]['department']) {
-            departList[i].selected = true
+            departList[i].selected = true;
         }
     }
+
     let statList = document.getElementById('status').children;
     for (let i = 0; i < statList.length; i++) {
-        statList[i].selected=false
-    }
-    for (let i = 0; i < statList.length; i++) {
+        statList[i].selected = false;
         if (statList[i].value == st[0]['status']) {
-            statList[i].selected = true
+            statList[i].selected = true;
         }
     }
-    document.getElementById('GPA').setAttribute('value', st[0]['GPA']);
-    document.getElementById('birth').setAttribute('value', st[0]['birthdate']);
+
+    document.getElementById('GPA').value = st[0]['GPA'];
+    document.getElementById('birth').value = st[0]['birthdate'];
 }
+
 
 function printMessage(place, text) {
     let message = document.getElementById(place);
@@ -265,6 +264,8 @@ function printAlert(place, text) {
         message.removeChild(x);
     }, 5000);
 }
+
+/*
 function disable(choice) {
     document.getElementById('fname').disabled = choice
     document.getElementById('lname').disabled = choice
@@ -276,33 +277,39 @@ function disable(choice) {
     document.getElementById('GPA').disabled = choice
     document.getElementById('birth').disabled = choice
 }
+
 function reset_form() {
-    document.getElementById('fname').setAttribute('value', '');
-    document.getElementById('lname').setAttribute('value', '');
-    document.getElementById('id').setAttribute('value', '');
-    document.getElementById('email').setAttribute('value', '');
-    document.getElementById('phone').setAttribute('value', '');
+    document.getElementById('fname').value = '';
+    document.getElementById('lname').value = '';
+    document.getElementById('id').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+
     let genderList = document.getElementById('gender').children;
     for (let i = 0; i < genderList.length; i++) {
-        genderList[i].selected=false
+        genderList[i].selected = false;
     }
-    genderList[0].selected = true
+    genderList[0].selected = true;
+
     let levelList = document.getElementById('level').children;
     for (let i = 0; i < levelList.length; i++) {
-        levelList[i].selected=false
+        levelList[i].selected = false;
     }
-    levelList[0].selected = true
+    levelList[0].selected = true;
+
     let departList = document.getElementById('department').children;
     for (let i = 0; i < departList.length; i++) {
-        departList[i].selected=false
+        departList[i].selected = false;
     }
-    departList[0].selected = true
+    departList[0].selected = true;
+
     let statList = document.getElementById('status').children;
     for (let i = 0; i < statList.length; i++) {
-        statList[i].selected=false
+        statList[i].selected = false;
     }
-    statList[0].selected = true
-    document.getElementById('GPA').setAttribute('value', '');
-    document.getElementById('birth').setAttribute('value', '');
+    statList[0].selected = true;
+
+    document.getElementById('GPA').value = '';
+    document.getElementById('birth').value = '';
     disable(false)
-}
+}*/

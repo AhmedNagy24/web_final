@@ -43,7 +43,7 @@
     </form><br>
 <div>
     <h2>Student information</h2>
-    <p>If the student is found, You can select any field and edit it then click submit to save changes, reset to revert changes, or delete to remove student.</p>
+    <p>If the student is found, You can select any field and edit it then click submit to save changes or delete to remove student.</p>
     <form target="_blank" id="form">
         {% csrf_token %}
         <div class="form-line">
@@ -124,7 +124,6 @@
         </div>
         <div class="form-line">
             <input type="submit" value="Submit">
-            <input type="reset" value="reset">
             <input type="button" class="delete-button" id="delete-student" value="Delete">
         </div>
         <br>
