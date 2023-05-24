@@ -135,15 +135,13 @@ searchBtn2.addEventListener('keydown', function (event) {
 
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
-    let department = $('#dept').val();
-    let studentId = $('#search_bar_assign').val();
-
     $.ajax({
         type: 'POST',
         url: '/departAssignEdit',
         data: {
-            department: department,
-            id: studentId
+            department: $('#dept').val(),
+            id: $('#search_bar_assign').val(),
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
         },
         success: function (data) {
             let message = $('#message');

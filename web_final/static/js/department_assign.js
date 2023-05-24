@@ -143,7 +143,8 @@ $(document).on('click', '#submit_button', function (e) {
         url: '/departAssignEdit',
         data: {
             department: department,
-            id: studentId
+            id: studentId,
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
         },
         success: function (data) {
             let message = $('#message');
