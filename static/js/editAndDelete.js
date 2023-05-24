@@ -1,20 +1,39 @@
-const search = document.getElementById("search-form")
-let student;
-$(document).on('submit', '#search-form', function (e){
-    e.preventDefault()
-    $.ajax({
-        type:'GET',
-        url:'update-student',
-        data:{
-            idNum: $('#idNum')
-        },
-        success: function (response) {
+function search_student() {
 
-        }
-    })
+    const givenID = document.getElementById("idNum").value;
+
+    fetch('/get_data/')
+        .then(response => response.json())
+        .then(data => {
+            const student = data.filter(student => student['id'] === givenID);
+            let found=true;
+            if (student.length===0){
+                found=false;
+            }
+            if (found) {
+                displayInfo(student)
+                if (student[0]['status']==="inactive"){
+                    disable(true)
+                }
+                printMessage('msg-container','Student found successfully!');
+            } else {
+                printAlert('msg-container','Student not found!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+let search_form = document.getElementById('search-form')
+search_form.addEventListener('submit', ev => {
+    ev.preventDefault()
+    ev.stopPropagation()
+    reset_form()
+    search_student()
 })
 // add event listener to this button
-search.addEventListener('submit', (e)=> {
+/*search.addEventListener('submit', (e)=> {
     e.preventDefault();
     // get all the data of active students from the local storage
     let students1 = JSON.parse(localStorage.getItem("allActiveStudents")) || [];
@@ -111,24 +130,14 @@ search.addEventListener('submit', (e)=> {
     }else {
         printAlert('msg-container','Student not found!');
     }
-})
+})*/
+
+/*
 
 function isPhone(number) {
     let pattern = /^\d{7,15}$/;
 
     return pattern.test(number);
-}
-
-function disable() {
-    document.getElementById('fname').setAttribute('disabled', 'true');
-    document.getElementById('lname').setAttribute('disabled', 'true');
-    document.getElementById('id').setAttribute('disabled', 'true');
-    document.getElementById('email').setAttribute('disabled', 'true');
-    document.getElementById('phone').setAttribute('disabled', 'true');
-    document.getElementById('gender').setAttribute('disabled', 'true');
-    document.getElementById('level').setAttribute('disabled', 'true');
-    document.getElementById('GPA').setAttribute('disabled', 'true');
-    document.getElementById('birth').setAttribute('disabled', 'true');
 }
 
 function isUnique(id, st1, st2, index1, index2) {
@@ -179,59 +188,113 @@ function findStudent(students1, students2, id) {
         }
     }
     return null;
-}
+}*/
 
 function displayInfo(st) {
-    document.getElementById('fname').setAttribute('value', st.firstName);
-    document.getElementById('lname').setAttribute('value', st.lastName);
-    document.getElementById('id').setAttribute('value', st.sID);
-    document.getElementById('email').setAttribute('value', st.sEmail);
-    document.getElementById('phone').setAttribute('value', st.sPhone);
+    document.getElementById('fname').defaultValue = st[0]['firstname'];
+    document.getElementById('lname').defaultValue = st[0]['lastname'];
+    document.getElementById('id').defaultValue = st[0]['id'];
+    document.getElementById('email').defaultValue = st[0]['email'];
+    document.getElementById('phone').defaultValue = st[0]['phone'];
     let genderList = document.getElementById('gender').children;
-    for (let i = 0; i<genderList.length; i++){
-        if (genderList[i].value==st.sGender){
-            genderList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < genderList.length; i++) {
+        genderList[i].selected=false
+    }
+    for (let i = 0; i < genderList.length; i++) {
+        if (genderList[i].value == st[0]['gender']) {
+            genderList[i].selected = true
         }
     }
     let levelList = document.getElementById('level').children;
-    for (let i = 0; i<levelList.length; i++){
-        if (levelList[i].value == st.sLevel){
-            levelList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < levelList.length; i++) {
+        levelList[i].selected=false
+    }
+    for (let i = 0; i < levelList.length; i++) {
+        if (levelList[i].value == st[0]['level']) {
+            levelList[i].selected = true
         }
     }
     let departList = document.getElementById('department').children;
-    for (let i=0; i<departList.length; i++){
-        if (departList[i].value==st.sDepartment){
-            departList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < departList.length; i++) {
+        departList[i].selected=false
+    }
+    for (let i = 0; i < departList.length; i++) {
+        if (departList[i].value == st[0]['department']) {
+            departList[i].selected = true
         }
     }
     let statList = document.getElementById('status').children;
-    for (let i=0; i<statList.length; i++){
-        if (statList[i].value==st.sStatus){
-            statList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < statList.length; i++) {
+        statList[i].selected=false
+    }
+    for (let i = 0; i < statList.length; i++) {
+        if (statList[i].value == st[0]['status']) {
+            statList[i].selected = true
         }
     }
-    document.getElementById('GPA').setAttribute('value', st.sGpa);
-    document.getElementById('birth').setAttribute('value', st.sBirthDate);
+    document.getElementById('GPA').defaultValue = st[0]['GPA'];
+    document.getElementById('birth').defaultValue = st[0]['birthdate'];
 }
 
-function printMessage(place,text) {
+function printMessage(place, text) {
     let message = document.getElementById(place);
     let x = document.createElement('div');
     x.setAttribute('id', 'message');
-    x.innerHTML=text;
+    x.innerHTML = text;
     message.appendChild(x);
     setTimeout(function () {
         message.removeChild(x);
     }, 5000);
 }
+
 function printAlert(place, text) {
     let message = document.getElementById(place);
     let x = document.createElement('div');
     x.setAttribute('id', 'alert');
-    x.innerHTML=text;
+    x.innerHTML = text;
     message.appendChild(x);
     setTimeout(function () {
         message.removeChild(x);
     }, 5000);
+}
+function disable(choice) {
+    document.getElementById('fname').disabled = choice
+    document.getElementById('lname').disabled = choice
+    document.getElementById('id').disabled = choice
+    document.getElementById('email').disabled = choice
+    document.getElementById('phone').disabled = choice
+    document.getElementById('gender').disabled = choice
+    document.getElementById('level').disabled = choice
+    document.getElementById('GPA').disabled = choice
+    document.getElementById('birth').disabled = choice
+}
+function reset_form() {
+    document.getElementById('fname').defaultValue = "";
+    document.getElementById('lname').defaultValue = "";
+    document.getElementById('id').defaultValue = "";
+    document.getElementById('email').defaultValue = "";
+    document.getElementById('phone').defaultValue = "";
+    let genderList = document.getElementById('gender').children;
+    for (let i = 0; i < genderList.length; i++) {
+        genderList[i].selected=false
+    }
+    genderList[0].selected = true
+    let levelList = document.getElementById('level').children;
+    for (let i = 0; i < levelList.length; i++) {
+        levelList[i].selected=false
+    }
+    levelList[0].selected = true
+    let departList = document.getElementById('department').children;
+    for (let i = 0; i < departList.length; i++) {
+        departList[i].selected=false
+    }
+    departList[0].selected = true
+    let statList = document.getElementById('status').children;
+    for (let i = 0; i < statList.length; i++) {
+        statList[i].selected=false
+    }
+    statList[0].selected = true
+    document.getElementById('GPA').defaultValue = "";
+    document.getElementById('birth').defaultValue = "";
+    disable(false)
 }

@@ -95,3 +95,36 @@ def view_students(request):
 def get_data(request):
     data = Student.objects.all().values()  # Retrieve all objects and their values
     return JsonResponse(list(data), safe=False)
+
+
+def edit_student(request):
+    if request.method == "POST":
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        ID = request.POST.get('ID')
+        mail = request.POST.get('mail')
+        phone = request.POST.get('phone')
+        gender = request.POST.get('gender')
+        level = request.POST.get('level')
+        department = request.POST.get('department')
+        status = request.POST.get('status')
+        gpa = request.POST.get('gpa')
+        birth_date = request.POST.get('birth_date')
+        old_id = request.POST.get('old_id')
+
+        if Student.objects.filter(id=ID).exists() and old_id != ID:
+            return HttpResponse("Error: ID already in use! please enter a unique ID")
+        else:
+            Student.objects.get(id=old_id).delete()
+            new_data = Student(firstname=first_name, lastname=last_name, id=ID, email=mail, phone=phone,
+                                  gender=gender, level=level, department=department, status=status, GPA=gpa,
+                                  birthdate=birth_date)
+            new_data.save()
+            return HttpResponse("Student information is updated successfully!")
+
+
+def delete_student(request):
+    if request.method == "POST":
+        id_num = request.POST.get('id')
+        Student.objects.get(id=id_num).delete()
+        return HttpResponse("Student deleted successfully!")

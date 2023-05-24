@@ -1,6 +1,99 @@
-const search = document.getElementById("search-form")
+let givenID;
+function search_student() {
+    givenID = document.getElementById("idNum").value;
+    fetch('/get_data/')
+        .then(response => response.json())
+        .then(data => {
+            const student = data.filter(student => student['id'] === givenID);
+            let found=true;
+            if (student.length===0){
+                found=false;
+            }
+            if (found) {
+                displayInfo(student)
+                if (student[0]['status']==="inactive"){
+                    disable(true)
+                }
+                printMessage('msg-container','Student found successfully!');
+            } else {
+                printAlert('msg-container','Student not found!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+let search_form = document.getElementById('search-form')
+search_form.addEventListener('submit', ev => {
+    ev.preventDefault()
+    ev.stopPropagation()
+    reset_form()
+    search_student()
+})
+
+$(document).on('submit', '#form', function (e) {
+    e.preventDefault()
+    let num = document.getElementById('phone').value
+    if (!isPhone(num)){
+        document.getElementById('phone').focus();
+        printAlert('phone-alert','Error: phone number is invalid!');
+        return
+    }
+    $.ajax({
+        url: '/edit-student',
+        type: 'POST',
+        data: {
+            first_name: $('#fname').val(),
+            last_name: $('#lname').val(),
+            ID: $('#id').val(),
+            mail: $('#email').val(),
+            phone: $('#phone').val(),
+            gender: $('#gender').val(),
+            level: $('#level').val(),
+            department: $('#department').val(),
+            status: $('#status').val(),
+            gpa: $('#GPA').val(),
+            birth_date: $('#birth').val(),
+            old_id: givenID,
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        success: function (response){
+          if (response==="Student information is updated successfully!"){
+              document.getElementById('idNum').focus();
+              printMessage('msg-container',response);
+              reset_form()
+          }else if (response==="Error: ID already in use! please enter a unique ID"){
+              document.getElementById('id').focus();
+              printAlert('id-alert',response);
+          }
+        }
+    })
+})
+$(document).on('click', '#delete-student', function (e){
+    e.preventDefault()
+    let check = confirm("Are sure you want to delete student: " + givenID)
+    if (!check){
+        return
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/delete-student',
+        data: {
+            id: givenID,
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        },
+        success: function (response) {
+            if (response==="Student deleted successfully!"){
+                document.getElementById('idNum').focus();
+                printMessage('msg-container','Student deleted successfully!');
+                reset_form()
+            }
+        }
+    })
+})
 // add event listener to this button
-search.addEventListener('submit', (e)=> {
+/*search.addEventListener('submit', (e)=> {
     e.preventDefault();
     // get all the data of active students from the local storage
     let students1 = JSON.parse(localStorage.getItem("allActiveStudents")) || [];
@@ -97,7 +190,7 @@ search.addEventListener('submit', (e)=> {
     }else {
         printAlert('msg-container','Student not found!');
     }
-})
+})*/
 
 function isPhone(number) {
     let pattern = /^\d{7,15}$/;
@@ -105,119 +198,111 @@ function isPhone(number) {
     return pattern.test(number);
 }
 
-function disable() {
-    document.getElementById('fname').setAttribute('disabled', 'true');
-    document.getElementById('lname').setAttribute('disabled', 'true');
-    document.getElementById('id').setAttribute('disabled', 'true');
-    document.getElementById('email').setAttribute('disabled', 'true');
-    document.getElementById('phone').setAttribute('disabled', 'true');
-    document.getElementById('gender').setAttribute('disabled', 'true');
-    document.getElementById('level').setAttribute('disabled', 'true');
-    document.getElementById('GPA').setAttribute('disabled', 'true');
-    document.getElementById('birth').setAttribute('disabled', 'true');
-}
-
-function isUnique(id, st1, st2, index1, index2) {
-    if (index1!==-1){
-        for (let i=0; i<st1.length; i++){
-            if (i===index1){
-                continue;
-            }
-            if (st1[i].sID==id){
-                return false;
-            }
-        }
-    }else if (index2!==-1){
-        for (let i=0; i<st2.length; i++){
-            if (i===index2){
-                continue;
-            }
-            if (st2[i].sID==id){
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-function updateLocal(stList, index) {
-    stList[index].firstName = document.getElementById('fname').value;
-    stList[index].lastName = document.getElementById('lname').value;
-    stList[index].sID = document.getElementById('id').value;
-    stList[index].sPhone = document.getElementById('phone').value;
-    stList[index].sEmail = document.getElementById('email').value;
-    stList[index].sGpa = document.getElementById('GPA').value;
-    stList[index].sGender = document.getElementById('gender').value;
-    stList[index].sStatus = document.getElementById('status').value;
-    stList[index].sBirthDate = document.getElementById('birth').value;
-    stList[index].sLevel = document.getElementById('level').value;
-}
-
-function findStudent(students1, students2, id) {
-    for (let i=0; i<students1.length; i++){
-        if (students1[i].sID==id){
-            return students1[i];
-        }
-    }
-    for (let i=0; i<students2.length; i++){
-        if (students2[i].sID==id){
-            return students2[i];
-        }
-    }
-    return null;
-}
-
 function displayInfo(st) {
-    document.getElementById('fname').setAttribute('value', st.firstName);
-    document.getElementById('lname').setAttribute('value', st.lastName);
-    document.getElementById('id').setAttribute('value', st.sID);
-    document.getElementById('email').setAttribute('value', st.sEmail);
-    document.getElementById('phone').setAttribute('value', st.sPhone);
+    document.getElementById('fname').setAttribute('value', st[0]['firstname']);
+    document.getElementById('lname').setAttribute('value', st[0]['lastname']);
+    document.getElementById('id').setAttribute('value', st[0]['id']);
+    document.getElementById('email').setAttribute('value', st[0]['email']);
+    document.getElementById('phone').setAttribute('value', st[0]['phone']);
     let genderList = document.getElementById('gender').children;
-    for (let i = 0; i<genderList.length; i++){
-        if (genderList[i].value==st.sGender){
-            genderList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < genderList.length; i++) {
+        genderList[i].selected=false
+    }
+    for (let i = 0; i < genderList.length; i++) {
+        if (genderList[i].value == st[0]['gender']) {
+            genderList[i].selected = true
         }
     }
     let levelList = document.getElementById('level').children;
-    for (let i = 0; i<levelList.length; i++){
-        if (levelList[i].value == st.sLevel){
-            levelList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < levelList.length; i++) {
+        levelList[i].selected=false
+    }
+    for (let i = 0; i < levelList.length; i++) {
+        if (levelList[i].value == st[0]['level']) {
+            levelList[i].selected = true
         }
     }
     let departList = document.getElementById('department').children;
-    for (let i=0; i<departList.length; i++){
-        if (departList[i].value==st.sDepartment){
-            departList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < departList.length; i++) {
+        departList[i].selected=false
+    }
+    for (let i = 0; i < departList.length; i++) {
+        if (departList[i].value == st[0]['department']) {
+            departList[i].selected = true
         }
     }
     let statList = document.getElementById('status').children;
-    for (let i=0; i<statList.length; i++){
-        if (statList[i].value==st.sStatus){
-            statList[i].setAttribute('selected', 'true');
+    for (let i = 0; i < statList.length; i++) {
+        statList[i].selected=false
+    }
+    for (let i = 0; i < statList.length; i++) {
+        if (statList[i].value == st[0]['status']) {
+            statList[i].selected = true
         }
     }
-    document.getElementById('GPA').setAttribute('value', st.sGpa);
-    document.getElementById('birth').setAttribute('value', st.sBirthDate);
+    document.getElementById('GPA').setAttribute('value', st[0]['GPA']);
+    document.getElementById('birth').setAttribute('value', st[0]['birthdate']);
 }
 
-function printMessage(place,text) {
+function printMessage(place, text) {
     let message = document.getElementById(place);
     let x = document.createElement('div');
     x.setAttribute('id', 'message');
-    x.innerHTML=text;
+    x.innerHTML = text;
     message.appendChild(x);
     setTimeout(function () {
         message.removeChild(x);
     }, 5000);
 }
+
 function printAlert(place, text) {
     let message = document.getElementById(place);
     let x = document.createElement('div');
     x.setAttribute('id', 'alert');
-    x.innerHTML=text;
+    x.innerHTML = text;
     message.appendChild(x);
     setTimeout(function () {
         message.removeChild(x);
     }, 5000);
+}
+function disable(choice) {
+    document.getElementById('fname').disabled = choice
+    document.getElementById('lname').disabled = choice
+    document.getElementById('id').disabled = choice
+    document.getElementById('email').disabled = choice
+    document.getElementById('phone').disabled = choice
+    document.getElementById('gender').disabled = choice
+    document.getElementById('level').disabled = choice
+    document.getElementById('GPA').disabled = choice
+    document.getElementById('birth').disabled = choice
+}
+function reset_form() {
+    document.getElementById('fname').setAttribute('value', '');
+    document.getElementById('lname').setAttribute('value', '');
+    document.getElementById('id').setAttribute('value', '');
+    document.getElementById('email').setAttribute('value', '');
+    document.getElementById('phone').setAttribute('value', '');
+    let genderList = document.getElementById('gender').children;
+    for (let i = 0; i < genderList.length; i++) {
+        genderList[i].selected=false
+    }
+    genderList[0].selected = true
+    let levelList = document.getElementById('level').children;
+    for (let i = 0; i < levelList.length; i++) {
+        levelList[i].selected=false
+    }
+    levelList[0].selected = true
+    let departList = document.getElementById('department').children;
+    for (let i = 0; i < departList.length; i++) {
+        departList[i].selected=false
+    }
+    departList[0].selected = true
+    let statList = document.getElementById('status').children;
+    for (let i = 0; i < statList.length; i++) {
+        statList[i].selected=false
+    }
+    statList[0].selected = true
+    document.getElementById('GPA').setAttribute('value', '');
+    document.getElementById('birth').setAttribute('value', '');
+    disable(false)
 }
