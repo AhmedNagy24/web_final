@@ -133,42 +133,31 @@ searchBtn2.addEventListener('keydown', function (event) {
     }
 });
 
-function assignDept() {
-    $(document).on( function (e) {
-        e.preventDefault()
-        let myDept = document.getElementById("dept").value;
-        $.ajax({
-            type: 'POST', url: '/departAssignEdit', data: {
-                department: myDept,
-            }, success: function (data) {
-                let message = document.getElementById('message');
-                let errorMessage = data
-                if (errorMessage === "Student added successfully") {
-                    message.style.backgroundColor = 'green'; // set message color to red
-                    message.innerHTML = errorMessage;
-                    message.removeAttribute('hidden');
-                    setTimeout(function () {
-                        message.innerHTML = '';
-                        message.setAttribute('hidden', 'true');
-                    }, 5000);
-                } else if (errorMessage === "Error: Student already exists") {
-                    message.style.backgroundColor = 'red'; // set message color to red
-                    message.innerHTML = errorMessage;
-                    message.removeAttribute('hidden');
-                    setTimeout(function () {
-                        message.innerHTML = '';
-                        message.setAttribute('hidden', 'true');
-                    }, 5000);
-                }
-            }
-        })
-    })
-}
+$(document).on('click', '#submit_button', function (e) {
+    e.preventDefault();
+    let department = $('#dept').val();
+    let studentId = $('#search_bar_assign').val();
 
-const assignBtn = document.getElementById("submit_button");
-assignBtn.addEventListener("click", (x) => {
-    x.preventDefault();
-    x.stopPropagation();
-    assignDept();
+    $.ajax({
+        type: 'POST',
+        url: '/departAssignEdit',
+        data: {
+            department: department,
+            id: studentId
+        },
+        success: function (data) {
+            let message = $('#message');
+            message.css('background-color', 'green');
+            message.html(data).removeAttr('hidden');
+            setTimeout(function () {
+                message.html('').attr('hidden', 'true');
+            }, 5000);
+        },
+        error: function (xhr, status, error) {
+            console.log('AJAX request error:', error);
+        }
+    });
 });
+
+
 

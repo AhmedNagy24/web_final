@@ -66,17 +66,23 @@ def add_student(request):
 
 
 def departAssignEdit(request):
-   if request.method == 'POST':
+    if request.method == 'POST':
         department = request.POST.get('department')
-        student_id = request.POST.get('student_id')
-        if Student.objects.filter(id=student_id).exists():
+        student_id = request.POST.get('id')
+
+        try:
             student = Student.objects.get(id=student_id)
             student.department = department
             student.save()
             return HttpResponse("Student assigned successfully")
+        except Student.DoesNotExist:
+            return HttpResponse("Error: Student not found")
+    else:
+        return HttpResponse("Invalid request")
 
 def depart_assign(request):
     return render(request, "department_assign.html")
+
 
 def search_student(request):
     return render(request, "searchstudent.html")
@@ -89,4 +95,3 @@ def view_students(request):
 def get_data(request):
     data = Student.objects.all().values()  # Retrieve all objects and their values
     return JsonResponse(list(data), safe=False)
-
