@@ -1,3 +1,4 @@
+
 function search_to_assign() {
     let inputID = document.getElementById("search_bar_assign").value;
 
@@ -43,6 +44,10 @@ function search_to_assign() {
                         msg.innerHTML = '';
                         msg.setAttribute('hidden', 'true');
                     }, 5000);
+                    let dep = document.getElementById('dept');
+                    dep.removeAttribute('hidden');
+                    let butt = document.getElementById('submit_button');
+                    butt.removeAttribute('hidden');
                 }
             } else if (myLevel < 3) {
                 let msg = document.getElementById('message');
@@ -53,6 +58,15 @@ function search_to_assign() {
                     msg.innerHTML = '';
                     msg.setAttribute('hidden', 'true');
                 }, 5000);
+                let dep = document.getElementById('dept');
+                dep.removeAttribute('hidden');
+                let butt = document.getElementById('submit_button');
+                butt.removeAttribute('hidden');
+                let z = document.getElementById('student_data');
+                z.remove();
+                let y = document.createElement('tbody');
+                y.id = 'student_data';
+                z.append(y);
             }
         })
         .catch(error => {
@@ -95,6 +109,10 @@ function search_results() {
                 z.append(tr);
                 body = tr;
                 check = false;
+                let dep = document.getElementById('dept');
+                dep.removeAttribute('hidden');
+                let butt = document.getElementById('submit_button');
+                butt.removeAttribute('hidden');
             }
 
             if (check) {
@@ -107,6 +125,16 @@ function search_results() {
                     msg.innerHTML = '';
                     msg.setAttribute('hidden', 'true');
                 }, 5000);
+                let dep = document.getElementById('dept');
+                dep.setAttribute('hidden', 'true');
+                let butt = document.getElementById('submit_button');
+                butt.setAttribute('hidden', 'true');
+                let z = document.getElementById('student_data');
+                z.remove();
+                let y = document.createElement('tbody');
+                y.id = 'student_data';
+                z.append(y);
+
             }
 
         })
@@ -135,24 +163,31 @@ searchBtn2.addEventListener('keydown', function (event) {
 
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
-    let department = $('#dept').val();
-    let studentId = $('#search_bar_assign').val();
-
     $.ajax({
         type: 'POST',
-        url: '/departAssignEdit',
+        url: '/depart-assign-edit',
         data: {
-            department: department,
-            id: studentId,
+            department: $('#dept').val(),
+            id: $('#search_bar_assign').val(),
             csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
         },
-        success: function (data) {
-            let message = $('#message');
-            message.css('background-color', 'green');
-            message.html(data).removeAttr('hidden');
+        success: function () {
+            let msg = $('#message');
+            msg.removeAttr('hidden');
+            msg.append("Student added successfully to " + $('#dept').val() + "!");
+            msg.css('background-color', 'green');
             setTimeout(function () {
-                message.html('').attr('hidden', 'true');
-            }, 5000);
+                msg.empty();
+                msg.attr('hidden', 'true');
+            }, 4500);
+            let x = $('#student_data');
+            x.remove();
+            let y = $('<tbody></tbody>');
+            y.attr('id', 'student_data');
+            let z = $('#data');
+            z.append(y);
+            search_results();
+            search_to_assign();
         },
         error: function (xhr, status, error) {
             console.log('AJAX request error:', error);

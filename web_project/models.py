@@ -16,3 +16,5 @@ class Student(models.Model):
     status = models.CharField(max_length=10)
     GPA = models.DecimalField(max_digits=3, decimal_places=2)
     birthdate = models.DateField()
+
+    

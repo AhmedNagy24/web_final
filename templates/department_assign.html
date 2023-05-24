@@ -37,7 +37,6 @@
 </center>
 <h1 class="page-name">Department Selection</h1>
 <div class="container">
-
     <div id="message" hidden style="color: #f2f2f2"></div>
     <div class="Choose">
         <label for="dept" id="Custom_line_label1">Choose a department:</label>
@@ -49,11 +48,12 @@
             <option id="5Th" hidden="hidden" value="DS">DS</option>
             <option id="6Th" hidden="hidden" value="no-department">CS</option>
         </select>
-        <button id="submit_button" type="button">Submit</button>
+        <button id="submit_button" type="button" >Submit</button>
 
         <label for="search_bar_assign" id="Custom_line_label2">Filter by ID:</label>
         <input id="search_bar_assign" type="search" placeholder="ID...">
-        <button id="search_button_assign" type="button">Search</button>
+        <button id="search_button_assign" type="button" >Search</button>
+        {% csrf_token %}
     </div>
     <div class="Table">
         <table id="data">
