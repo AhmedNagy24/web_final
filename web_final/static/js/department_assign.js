@@ -113,7 +113,7 @@ $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: '/depart-assign-edit',
+        url: '/departAssignEdit',
         data: {
             department: $('#dept').val(),
             id: $('#search_bar_assign').val(),
