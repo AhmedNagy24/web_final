@@ -76,6 +76,8 @@ def departAssignEdit(request):
             return HttpResponse("Student assigned successfully\n")
         elif student.level < 2:
             return HttpResponse("Student level is less than 2")
+        elif Student.objects.filter(id=student_id).exists() is False:
+            return HttpResponse("Student does not exist")
         elif student.GPA < 2:
             return HttpResponse("Student GPA is less than the minimum to assign a department")
 
