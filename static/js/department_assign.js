@@ -127,13 +127,13 @@ $(document).on('click', '#submit_button', function (e) {
             msg.removeAttr('hidden');
             msg.append(response);
             if (res.includes("\n")) {
-                msg.css('background-color', 'red')
+                msg.css('background-color', 'green')
                 let x = $('#student_data');
                 x.remove();
                 let y = $('<tbody></tbody>');
                 y.attr('id', 'student_data');
             } else {
-                msg.css('background-color', 'green');
+                msg.css('background-color', 'red');
             }
             setTimeout(function () {
                 msg.empty();
