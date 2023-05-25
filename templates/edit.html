@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="You can edit student information or delete students using this page.">
     <title>Edit student info</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
 </head>
@@ -36,14 +37,15 @@
     <form id="search-form" style="background-color: white">
         <div style="display: inline-block">
             <label id="idNum-label" for="idNum"><b>ID</b></label>
-            <input id="idNum" type="number" min="1" required placeholder = "ENTER STUDENT ID">
+            <input id="idNum" type="text" min="1" required placeholder = "ENTER STUDENT ID">
             <input type="submit" value="SEARCH" id="search">
         </div>
     </form><br>
 <div>
     <h2>Student information</h2>
-    <p>If the student is found, You can select any field and edit it then click submit to save changes, reset to revert changes, or delete to remove student.</p>
-    <form action="" target="_blank" id="form">
+    <p>If the student is found, You can select any field and edit it then click submit to save changes or delete to remove student.</p>
+    <form target="_blank" id="form">
+        {% csrf_token %}
         <div class="form-line">
             <div>
                 <label for="fname">FirstName</label>
@@ -122,7 +124,6 @@
         </div>
         <div class="form-line">
             <input type="submit" value="Submit">
-            <input type="reset" value="reset">
             <input type="button" class="delete-button" id="delete-student" value="Delete">
         </div>
         <br>

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import departAssignEdit
 urlpatterns = [
     path('', views.home, name="home"),
     path('login/', views.log_user, name="login"),
@@ -10,5 +11,7 @@ urlpatterns = [
     path('add-student', views.add_student, name="add"),
     path('depart-assign/', views.depart_assign, name="depart"),
     path('get_data/', views.get_data, name='get_data'),
-    path('depart-assign-edit', views.departAssignEdit, name='depart-assign-edit'),
+    path('departAssignEdit', views.departAssignEdit, name='depart_assign_edit'),
+    path('edit-student', views.edit_student, name='edit-student'),
+    path('delete-student', views.delete_student, name='delete-student')
 ]
