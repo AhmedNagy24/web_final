@@ -9,7 +9,7 @@ function search() {
         .then(response => response.json())
         .then(data => {
 
-            const student = data.filter(student => student.id === GivenID);
+            let  student = data.filter(student => student.id === GivenID);
 
 
             document.getElementById("fullname").value = " " + student[0].firstname + " " + student[0].lastname;
