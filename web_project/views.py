@@ -69,16 +69,16 @@ def departAssignEdit(request):
     if request.method == 'POST':
         department = request.POST.get('department')
         student_id = request.POST.get('id')
-
-        try:
-            student = Student.objects.get(id=student_id)
+        student = Student.objects.get(id=student_id)
+        if student.level > 2 and student.GPA > 2 and Student.objects.filter(id=student_id).exists():
             student.department = department
             student.save()
             return HttpResponse("Student assigned successfully")
-        except Student.DoesNotExist:
-            return HttpResponse("Error: Student not found")
+        else:
+            return HttpResponse("Student can't be assigned to this department\n")
     else:
         return HttpResponse("Invalid request")
+
 
 def depart_assign(request):
     return render(request, "department_assign.html")
