@@ -29,7 +29,7 @@ let search_form = document.getElementById('search-form')
 search_form.addEventListener('submit', ev => {
     ev.preventDefault()
     ev.stopPropagation()
-    document.getElementById('form').reset()
+    reset_form()
     search_student()
 })
 
@@ -63,7 +63,7 @@ $(document).on('submit', '#form', function (e) {
             if (response === "Student information is updated successfully!") {
                 document.getElementById('idNum').focus();
                 printMessage('msg-container', response);
-                document.getElementById('form').reset()
+                reset_form()
             } else if (response === "Error: ID already in use! please enter a unique ID") {
                 document.getElementById('id').focus();
                 printAlert('id-alert', response);
@@ -88,110 +88,11 @@ $(document).on('click', '#delete-student', function (e) {
             if (response === "Student deleted successfully!") {
                 document.getElementById('idNum').focus();
                 printMessage('msg-container', 'Student deleted successfully!');
-                document.getElementById('form').reset()
+                reset_form()
             }
         }
     })
 })
-// add event listener to this button
-/*search.addEventListener('submit', (e)=> {
-    e.preventDefault();
-    // get all the data of active students from the local storage
-    let students1 = JSON.parse(localStorage.getItem("allActiveStudents")) || [];
-    let students2 = JSON.parse(localStorage.getItem("allInActiveStudents")) || [];
-    let id = document.getElementById('idNum').value;
-    let st = findStudent(students1, students2, id);
-    if (st !== null){
-        let index1=-1;
-        let index2=-1;
-        if (students1.length!==0){
-            index1 = students1.findIndex((x) => x===st);
-        }
-        if (students2.length!==0){
-            index2 = students2.findIndex((x) => x===st);
-        }
-        if (index2!==-1){
-            disable();
-        }
-        displayInfo(st);
-        printMessage('msg-container','Student found successfully!');
-        const edit = document.getElementById('form');
-        edit.addEventListener('submit', (e) =>{
-            e.preventDefault();
-            let newId = document.getElementById('id').value;
-            let newPhone = document.getElementById('phone').value;
-            if (isUnique(newId, students1, students2, index1, index2)&&isPhone(newPhone)){
-                let newState = document.getElementById('status').value;
-                if (index1 !== -1 && st.sStatus === newState){
-                    updateLocal(students1, index1);
-                    localStorage.setItem('allActiveStudents', JSON.stringify(students1));
-                }else if (index2 !== -1 && st.sStatus === newState){
-                    updateLocal(students2, index2);
-                    localStorage.setItem('allInActiveStudents', JSON.stringify(students2));
-                }else if (index1 !== -1 && st.sStatus !== newState){
-                    students2.push({
-                        firstName: document.getElementById('fname').value,
-                        lastName: document.getElementById('lname').value,
-                        sID: document.getElementById('id').value,
-                        sBirthDate: document.getElementById('birth').value,
-                        sGpa: document.getElementById('GPA').value,
-                        sGender: document.getElementById('gender').value,
-                        sLevel: document.getElementById('level').value,
-                        sStatus: document.getElementById('status').value,
-                        sDepartment: document.getElementById('department').value,
-                        sEmail: document.getElementById('email').value,
-                        sPhone: document.getElementById('phone').value,
-                    });
-                    students1.splice(index1, 1);
-                    index1 = -1;
-                    index2 = students2.length-1;
-                    localStorage.setItem('allActiveStudents', JSON.stringify(students1));
-                    localStorage.setItem('allInActiveStudents', JSON.stringify(students2));
-                }else if (index2 !== -1 && st.sStatus !== newState){
-                    st.sStatus=newState;
-                    students1.push(st);
-                    students2.splice(index2, 1);
-                    index1 = students1.length-1
-                    index2 = -1;
-                    localStorage.setItem('allActiveStudents', JSON.stringify(students1));
-                    localStorage.setItem('allInActiveStudents', JSON.stringify(students2));
-                }
-                scrollTo(0, 0);
-                printMessage('msg-container','Student information is updated successfully!');
-                setTimeout(function () {
-                    location.reload();
-                }, 2000)
-            }else if(!isUnique(newId, students1, students2, index1, index2)&&isPhone(newPhone)){
-                document.getElementById('id').focus();
-                printAlert('id-alert','Error: ID already in use! please enter a unique ID');
-            }else if(isUnique(newId, students1, students2, index1, index2)&&!isPhone(newPhone)){
-                document.getElementById('phone').focus();
-                printAlert('phone-alert','Error: phone number is invalid!');
-            }else if(!isUnique(newId, students1, students2, index1, index2)&&!isPhone(newPhone)){
-                printAlert('phone-alert','Error: phone number is invalid!');
-                printAlert('id-alert','Error: ID already in use! please enter a unique ID');
-            }
-        })
-        let del = document.getElementById('delete-student');
-        del.addEventListener('click', (e)=>{
-            e.preventDefault();
-            if (index1 !== -1){
-                students1.splice(index1,1);
-                localStorage.setItem('allActiveStudents', JSON.stringify(students1));
-            }else if (index2 !== -1){
-                students2.splice(index2, 1);
-                localStorage.setItem('allInActiveStudents', JSON.stringify(students2));
-            }
-            scrollTo(0, 0);
-            printMessage('msg-container','Student deleted');
-            setTimeout(function () {
-                location.reload();
-            }, 2000)
-        })
-    }else {
-        printAlert('msg-container','Student not found!');
-    }
-})*/
 
 function isPhone(number) {
     let pattern = /^\d{7,15}$/;
@@ -265,7 +166,6 @@ function printAlert(place, text) {
     }, 5000);
 }
 
-/*
 function disable(choice) {
     document.getElementById('fname').disabled = choice
     document.getElementById('lname').disabled = choice
@@ -312,4 +212,4 @@ function reset_form() {
     document.getElementById('GPA').value = '';
     document.getElementById('birth').value = '';
     disable(false)
-}*/
+}
