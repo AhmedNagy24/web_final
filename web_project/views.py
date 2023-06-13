@@ -85,6 +85,8 @@ def departAssignEdit(request):
         return HttpResponse("Invalid request")
 
 
+
+
 def depart_assign(request):
     return render(request, "department_assign.html")
 
@@ -122,8 +124,8 @@ def edit_student(request):
         else:
             Student.objects.get(id=old_id).delete()
             new_data = Student(firstname=first_name, lastname=last_name, id=ID, email=mail, phone=phone,
-                                  gender=gender, level=level, department=department, status=status, GPA=gpa,
-                                  birthdate=birth_date)
+                               gender=gender, level=level, department=department, status=status, GPA=gpa,
+                               birthdate=birth_date)
             new_data.save()
             return HttpResponse("Student information is updated successfully!")
 

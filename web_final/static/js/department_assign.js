@@ -22,20 +22,47 @@ function search_to_assign() {
                     document.getElementById("5Th").removeAttribute("hidden");
                     document.getElementById("3Rd").removeAttribute("hidden");
                     document.getElementById("4Th").removeAttribute("hidden");
+                    document.getElementById("2Nd").setAttribute("hidden", "true");
                 } else if (myGPA >= 2.5) {
                     document.getElementById("dept").removeAttribute("hidden");
                     document.getElementById("1St").removeAttribute("hidden");
                     document.getElementById("5Th").removeAttribute("hidden");
                     document.getElementById("4Th").removeAttribute("hidden");
+                    document.getElementById("3Rd").setAttribute("hidden", "true");
+                    document.getElementById("2Nd").setAttribute("hidden", "true");
                 } else if (myGPA >= 2.2) {
                     document.getElementById("dept").removeAttribute("hidden");
                     document.getElementById("4Th").removeAttribute("hidden");
                     document.getElementById("5Th").removeAttribute("hidden");
+                    document.getElementById("3Rd").setAttribute("hidden", "true");
+                    document.getElementById("2Nd").setAttribute("hidden", "true");
+                    document.getElementById("1St").setAttribute("hidden", "true");
                 } else if (myGPA >= 2) {
                     document.getElementById("dept").removeAttribute("hidden");
                     document.getElementById("5Th").removeAttribute("hidden");
+                    document.getElementById("4Th").setAttribute("hidden", "true");
+                    document.getElementById("3Rd").setAttribute("hidden", "true");
+                    document.getElementById("2Nd").setAttribute("hidden", "true");
+                    document.getElementById("1St").setAttribute("hidden", "true");
                 }
+            } else {
+                document.getElementById("4Th").setAttribute("hidden", "true");
+                document.getElementById("3Rd").setAttribute("hidden", "true");
+                document.getElementById("2Nd").setAttribute("hidden", "true");
+                document.getElementById("1St").setAttribute("hidden", "true");
+                document.getElementById("5Th").setAttribute("hidden", "true");
+                let msg = document.getElementById('message');
+                msg.style.backgroundColor = "red";
+                msg.removeAttribute("hidden");
+                msg.style.backgroundColor = "red";
+                msg.append("Student is not eligible for department assignment");
+                setTimeout(function () {
+                    msg.innerHTML = '';
+                    msg.setAttribute('hidden', 'true');
+                }, 5000);
+
             }
+
         })
         .catch(error => {
             // Handle any errors
@@ -62,7 +89,11 @@ function search_results() {
         .then(data => {
             let students = data.filter(student => student.status === 'active');
             let myStud = students.filter(student => student.id === inputID);
+            let myLevel = myStud[0].level;
             if (myStud.length > 0) {
+                if (myLevel < 2) {
+                    return;
+                }
                 td1.innerHTML = myStud[0].firstname + " " + myStud[0].lastname;
                 td2.innerHTML = myStud[0].GPA;
                 td3.innerHTML = myStud[0].status;
@@ -139,6 +170,7 @@ $(document).on('click', '#submit_button', function (e) {
                 msg.empty();
                 msg.attr('hidden', 'true');
                 msg.css('background-color', 'white');
+                msg.innerHTML = '';
             }, 4500);
             let x = $('#student_data');
             x.remove();
