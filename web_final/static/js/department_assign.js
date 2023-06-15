@@ -45,17 +45,18 @@ function search_to_assign() {
                     document.getElementById("2Nd").setAttribute("hidden", "true");
                     document.getElementById("1St").setAttribute("hidden", "true");
                 }
-            } else {
+            } else if (myLevel < 2) {
                 document.getElementById("4Th").setAttribute("hidden", "true");
                 document.getElementById("3Rd").setAttribute("hidden", "true");
                 document.getElementById("2Nd").setAttribute("hidden", "true");
                 document.getElementById("1St").setAttribute("hidden", "true");
                 document.getElementById("5Th").setAttribute("hidden", "true");
+                document.getElementById("dept").setAttribute("hidden", "true");
                 let msg = document.getElementById('message');
                 msg.style.backgroundColor = "red";
                 msg.removeAttribute("hidden");
                 msg.style.backgroundColor = "red";
-                msg.append("Student is not eligible for department assignment");
+                msg.append(" Student is not eligible for department assignment ");
                 setTimeout(function () {
                     msg.innerHTML = '';
                     msg.setAttribute('hidden', 'true');
@@ -65,8 +66,22 @@ function search_to_assign() {
 
         })
         .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
+            document.getElementById("4Th").setAttribute("hidden", "true");
+            document.getElementById("3Rd").setAttribute("hidden", "true");
+            document.getElementById("2Nd").setAttribute("hidden", "true");
+            document.getElementById("1St").setAttribute("hidden", "true");
+            document.getElementById("5Th").setAttribute("hidden", "true");
+            document.getElementById("dept").setAttribute("hidden", "true");
+            let msg = document.getElementById('message');
+            msg.style.backgroundColor = "red";
+            msg.removeAttribute("hidden");
+            msg.style.backgroundColor = "red";
+            msg.append("Student is not found");
+            setTimeout(function () {
+                msg.innerHTML = '';
+                msg.setAttribute('hidden', 'true');
+            }, 5000);
+
         });
 
 
@@ -75,14 +90,13 @@ function search_to_assign() {
 let body;
 
 function search_results() {
-
+    let x = document.getElementById('student_data');
+    x.remove();
+    let y = document.createElement('tbody');
+    y.setAttribute('id', 'student_data');
+    let tab = document.getElementById('data');
+    tab.append(y);
     let check = true;
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    let td3 = document.createElement("td");
-    let td4 = document.createElement("td");
-    let td5 = document.createElement("td");
     let inputID = document.getElementById("search_bar_assign").value;
     fetch('/get_data/')
         .then(response => response.json())
@@ -94,6 +108,12 @@ function search_results() {
                 if (myLevel < 2) {
                     return;
                 }
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
                 td1.innerHTML = myStud[0].firstname + " " + myStud[0].lastname;
                 td2.innerHTML = myStud[0].GPA;
                 td3.innerHTML = myStud[0].status;
@@ -139,7 +159,6 @@ searchBtn1.addEventListener("click", (x) => {
     search_to_assign();
 });
 
-
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
     $.ajax({
@@ -156,7 +175,7 @@ $(document).on('click', '#submit_button', function (e) {
 
             let msg = $('#message');
             msg.removeAttr('hidden');
-            msg.append(response);
+            msg.append('  '+ response);
             if (res.includes("\n")) {
                 msg.css('background-color', 'green')
                 let x = $('#student_data');
@@ -178,12 +197,19 @@ $(document).on('click', '#submit_button', function (e) {
             y.attr('id', 'student_data');
             let z = $('#data');
             z.append(y);
-
             search_results();
             search_to_assign();
         },
         error: function (xhr, status, error) {
-            console.log('AJAX request error:', error);
+            let msg = document.getElementById('message');
+            msg.style.backgroundColor = "red";
+            msg.removeAttribute("hidden");
+            msg.style.backgroundColor = "red";
+            msg.append("Student is not found");
+            setTimeout(function () {
+                msg.innerHTML = '';
+                msg.setAttribute('hidden', 'true');
+            }, 5000);
         }
     });
 });
