@@ -73,7 +73,7 @@ def departAssignEdit(request):
         if student.level > 2 and student.GPA > 2 and Student.objects.filter(id=student_id).exists():
             student.department = department
             student.save()
-            return HttpResponse("Student assigned successfully\n")
+            return HttpResponse(f"Student assigned successfully to {department} department\n")
         elif student.level < 2:
             return HttpResponse("Student level is less than 2")
         elif Student.objects.filter(id=student_id).exists() is False:

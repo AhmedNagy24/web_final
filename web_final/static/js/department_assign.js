@@ -159,6 +159,7 @@ searchBtn1.addEventListener("click", (x) => {
     search_to_assign();
 });
 
+
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
     $.ajax({
