@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .views import departAssignEdit
+
 urlpatterns = [
     path('', views.home, name="home"),
     path('login/', views.log_user, name="login"),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('departAssignEdit', views.departAssignEdit, name='departAssignEdit'),
     path('edit-student', views.edit_student, name='edit-student'),
     path('delete-student', views.delete_student, name='delete-student'),
+    path('change_status/', views.change_status, name='change_status'),
+
 ]

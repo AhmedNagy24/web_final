@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import response
+from django.views.decorators.csrf import csrf_exempt
+
 from web_project.models import Student
 import json
 from django.shortcuts import get_object_or_404
@@ -134,3 +136,23 @@ def delete_student(request):
         Student.objects.get(id=id_num).delete()
         return HttpResponse("Student deleted successfully!")
 
+@csrf_exempt
+def change_status(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('id')
+        new_status = request.POST.get('status')
+
+        try:
+            student = Student.objects.get(id=student_id)
+            student.status = new_status
+            print(new_status)
+            student.save()
+            return JsonResponse({'message': 'Status updated successfully'})
+
+        except Student.DoesNotExist:
+            return JsonResponse({'error': 'Student not found'}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'},status=405)

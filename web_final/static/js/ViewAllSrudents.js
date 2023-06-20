@@ -1,24 +1,71 @@
-fetch('/get_data/')
-  .then(response => response.json())
-  .then(data => {
-    // Split data into active and inactive students
-    const activeStudents = data.filter(student => student.status === 'active');
-    const inactiveStudents = data.filter(student => student.status === 'inactive');
+function fetchData() {
+  fetch('/get_data/')
+    .then(response => response.json())
+    .then(data => {
+      // Split data into active and inactive students
+      const activeStudents = data.filter(student => student.status === 'active');
+      const inactiveStudents = data.filter(student => student.status === 'inactive');
 
-    // Display active students in the activeTable
-    const activeTable = document.getElementById('activeTable');
-    activeTable.innerHTML = generateTableHTML1(activeStudents);
+      // Display active students in the activeTable
+      const activeTable = document.getElementById('activeTable');
+      activeTable.innerHTML = generateTableHTML1(activeStudents);
 
-    // Display inactive students in the inActiveTable
-    const inactiveTable = document.getElementById('inActiveTable');
-    inactiveTable.innerHTML = generateTableHTML2(inactiveStudents);
-  })
-  .catch(error => {
-    // Handle any errors
-    console.error('Error:', error);
-  });
+      // Display inactive students in the inActiveTable
+      const inactiveTable = document.getElementById('inActiveTable');
+      inactiveTable.innerHTML = generateTableHTML2(inactiveStudents);
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error('Error:', error);
+    });
+}
 
-// Function to generate HTML table from student data for active students
+
+function getCSRFToken() {
+    var cookieValue = null;
+    var name = "csrftoken";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+        }
+    }
+    return cookieValue;
+}
+
+function changeactivity(id) {
+    var c = confirm("Are you sure you want to change the activity?");
+
+    if (c) {
+        var statusElement = document.getElementById(`status_${id}`);
+        var status = statusElement.value;
+
+        var csrftoken = getCSRFToken();
+
+        $.ajax({
+            url: '/change_status/',
+            type: 'POST',
+            data: {
+                id: id,
+                status: status
+            },
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function (response) {
+                alert("Status has been updated successfully");
+                fetchData()
+            },
+            error: function (xhr, status, error) {
+                console.log(status)
+                alert("Error updating status: " + error);
+            }
+        });
+    }
+}
+
 function generateTableHTML1(students) {
   if (students.length === 0) {
     return '<p>No active students found.</p>';
@@ -62,10 +109,11 @@ const createTableData1 = (students1) => {
         <td>${student.department}</td>
         <td>${student.birthdate}</td>
         <td>
-        <select name="status" id="status">
-            <option value="active">active</option>
-            <option value="inactive">inactive</option>
-</td>
+            <select name="status" id="status_${student.id}" onchange="changeactivity(${student.id})">
+                <option value="active" id="active" selected >Active</option>
+                <option value="inactive" id="inactive">Inactive</option>
+            </select>
+        </td>   
       </tr>
     `;
   });
@@ -114,10 +162,11 @@ const createTableData2 = (students2) => {
         <td>${student.department}</td>
         <td>${student.birthdate}</td>
         <td>
-        <select name="status" id="status">
-            <option value="active">active</option>
-            <option value="inactive">inactive</option>
-</td>
+            <select name="status" id="status_${student.id}" onchange="changeactivity(${student.id})">
+                <option value="active" id="active" >Active</option>
+                <option value="inactive" id="inactive" selected>Inactive</option>
+            </select>
+        </td>   
       </tr>
     `;
   });
@@ -149,19 +198,6 @@ const createTable2 = (students2) => {
     </table>
   `;
 }
-$(document).on('change', '#status', function () {
-    var status = $(this).val();
-    var id = $(this).closest('tr').find('td:eq(1)').text();
-    var data = { 'status': status, 'id': id };
-    $.ajax({
-        url: '/change_status/',
-        type: 'POST',
-        data: data,
-        success: function (response) {
-        console.log(response);
-        },
-        error: function (response) {
-        console.log(response);
-        }
-    });
-});
+
+
+fetchData();
