@@ -1,75 +1,79 @@
-let btn = document.getElementById("btn1");
-let message = document.getElementById("errf");
-
-function search() {
-
-    const GivenID = document.getElementById("GID").value;
-
+function serachForNames() {
     fetch('/get_data/')
         .then(response => response.json())
         .then(data => {
-
-            let student = data.filter(student => student.id === GivenID);
-            student = student.filter(student => student.status === "active");
-
-            if (student.length > 0) {
-                printMessage("msg-container", "Student found!")
-            } else if (student.length === 0) {
-                printAlert("msg-container", "Student not found!")
-                return
+            const activeStudents = data.filter(student => student.status === 'active' || student.status === 'Active');
+            const name = document.getElementById('search').value;
+            let myStudents = activeStudents.filter(student => student.firstname.toLocaleLowerCase() === name.toLocaleLowerCase());
+            console.log(name);
+            const table = document.getElementById('student_data');
+            if (myStudents.length === 0) {
+                let msg = document.getElementById('message');
+                msg.removeAttribute("hidden");
+                msg.style.backgroundColor = 'red';
+                msg.append("Student is not found");
+                setTimeout(function () {
+                    msg.innerHTML = '';
+                    msg.setAttribute('hidden', 'true');
+                }, 3000);
+            } else {
+                myStudents.forEach(student => {
+                        shownName = student.firstname + " " + student.lastname;
+                        shownID = student.id;
+                        shownLevel = student.level;
+                        shownEmail = student.email;
+                        shownGPA = student.GPA;
+                        shownStatus = student.status;
+                        shownGender = student.gender;
+                        shownDEP = student.department;
+                        shownPhone = student.phone;
+                        nameTD = document.createElement('td');
+                        nameTD.innerHTML = shownName;
+                        idTD = document.createElement('td');
+                        idTD.innerHTML = shownID;
+                        levelTD = document.createElement('td');
+                        levelTD.innerHTML = shownLevel;
+                        emailTD = document.createElement('td');
+                        emailTD.innerHTML = shownEmail;
+                        gpaTD = document.createElement('td');
+                        gpaTD.innerHTML = shownGPA;
+                        statusTD = document.createElement('td');
+                        statusTD.innerHTML = shownStatus;
+                        genderTD = document.createElement('td');
+                        genderTD.innerHTML = shownGender;
+                        depTD = document.createElement('td');
+                        depTD.innerHTML = shownDEP;
+                        phoneTD = document.createElement('td');
+                        phoneTD.innerHTML = shownPhone;
+                        tr = document.createElement('tr');
+                        tr.appendChild(nameTD);
+                        tr.appendChild(idTD);
+                        tr.appendChild(levelTD);
+                        tr.appendChild(emailTD);
+                        tr.appendChild(gpaTD);
+                        tr.appendChild(statusTD);
+                        tr.appendChild(genderTD);
+                        tr.appendChild(depTD);
+                        tr.appendChild(phoneTD);
+                        table.appendChild(tr);
+                    }
+                );
             }
-            document.getElementById("fullname").value = " " + student[0].firstname + " " + student[0].lastname;
-            document.getElementById("ident").value = " " + student[0].id;
-            document.getElementById("GPA").value = " " + student[0].GPA;
-            document.getElementById("BD").value = " " + student[0].birthdate;
-            document.getElementById("state").value = " " + student[0].status;
-            document.getElementById("dept").value = " " + student[0].department;
-            document.getElementById("contact").value = " " + student[0].phone;
-            document.getElementById("email").value = " " + student[0].email;
-
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
         });
 }
 
-btn.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    reset_form();
-    search();
+function deleteTD() {
+    const table = document.getElementById('student_data');
+    table.remove();
+    const newTable = document.createElement('tbody');
+    newTable.setAttribute('id', 'student_data');
+    let tab = document.getElementById('data');
+    tab.append(newTable);
+}
+
+const btn = document.getElementById('search_button');
+btn.addEventListener("click", (x) => {
+    x.preventDefault();
+    deleteTD();
+    serachForNames();
 });
-
-function printMessage(place, text) {
-    let message = document.getElementById(place);
-    let x = document.createElement('div');
-    x.setAttribute('id', 'message');
-    x.innerHTML = text;
-    message.appendChild(x);
-    setTimeout(function () {
-        message.removeChild(x);
-    }, 5000);
-}
-
-function printAlert(place, text) {
-    let message = document.getElementById(place);
-    let x = document.createElement('div');
-    x.setAttribute('id', 'alert');
-    x.innerHTML = text;
-    message.appendChild(x);
-    setTimeout(function () {
-        message.removeChild(x);
-    }, 5000);
-}
-
-function reset_form() {
-    document.getElementById("fullname").value = ""
-    document.getElementById("ident").value = ""
-    document.getElementById("GPA").value = ""
-    document.getElementById("BD").value = ""
-    document.getElementById("state").value = ""
-    document.getElementById("dept").value = ""
-    document.getElementById("contact").value = ""
-    document.getElementById("email").value = ""
-}
