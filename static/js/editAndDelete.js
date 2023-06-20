@@ -41,6 +41,11 @@ $(document).on('submit', '#form', function (e) {
         printAlert('phone-alert', 'Error: phone number is invalid!');
         return
     }
+    let depart = document.getElementById('department').value
+    let level = document.getElementById('level').value
+    if (level<3){
+        depart = 'General';
+    }
     $.ajax({
         url: '/edit-student',
         type: 'POST',
@@ -52,7 +57,7 @@ $(document).on('submit', '#form', function (e) {
             phone: $('#phone').val(),
             gender: $('#gender').val(),
             level: $('#level').val(),
-            department: $('#department').val(),
+            department: depart,
             status: $('#status').val(),
             gpa: $('#GPA').val(),
             birth_date: $('#birth').val(),
