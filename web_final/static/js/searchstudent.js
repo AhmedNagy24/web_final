@@ -10,6 +10,7 @@ function search() {
         .then(data => {
 
             let student = data.filter(student => student.id === GivenID);
+            student = student.filter(student => student.status === "active");
 
             if (student.length > 0) {
                 printMessage("msg-container", "Student found!")
