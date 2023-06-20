@@ -85,8 +85,6 @@ def departAssignEdit(request):
         return HttpResponse("Invalid request")
 
 
-
-
 def depart_assign(request):
     return render(request, "department_assign.html")
 
@@ -135,3 +133,4 @@ def delete_student(request):
         id_num = request.POST.get('id')
         Student.objects.get(id=id_num).delete()
         return HttpResponse("Student deleted successfully!")
+

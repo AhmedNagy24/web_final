@@ -10,6 +10,7 @@ levelField.onchange = function () {
 };
 
 
+/*
 function printMessage(error) {
     let message = document.getElementById('message');
     let errorMessage = error
@@ -41,6 +42,7 @@ function printMessage(error) {
 
 }
 
+*/
 let message = ""
 
 $(document).on('submit', '#form', function (e) {

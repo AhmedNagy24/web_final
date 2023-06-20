@@ -61,7 +61,11 @@ const createTableData1 = (students1) => {
         <td>${student.GPA}</td>
         <td>${student.department}</td>
         <td>${student.birthdate}</td>
-        <td>${student.status}</td>
+        <td>
+        <select name="status" id="status">
+            <option value="active">active</option>
+            <option value="inactive">inactive</option>
+</td>
       </tr>
     `;
   });
@@ -109,7 +113,11 @@ const createTableData2 = (students2) => {
         <td>${student.GPA}</td>
         <td>${student.department}</td>
         <td>${student.birthdate}</td>
-        <td>${student.status}</td>
+        <td>
+        <select name="status" id="status">
+            <option value="active">active</option>
+            <option value="inactive">inactive</option>
+</td>
       </tr>
     `;
   });

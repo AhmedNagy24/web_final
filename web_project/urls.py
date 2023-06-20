@@ -13,5 +13,5 @@ urlpatterns = [
     path('get_data/', views.get_data, name='get_data'),
     path('departAssignEdit', views.departAssignEdit, name='departAssignEdit'),
     path('edit-student', views.edit_student, name='edit-student'),
-    path('delete-student', views.delete_student, name='delete-student')
+    path('delete-student', views.delete_student, name='delete-student'),
 ]
