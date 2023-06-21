@@ -45,7 +45,7 @@ function search_to_assign() {
                     document.getElementById("2Nd").setAttribute("hidden", "true");
                     document.getElementById("1St").setAttribute("hidden", "true");
                 }
-            } else if (myLevel < 2) {
+            } else  {
                 document.getElementById("4Th").setAttribute("hidden", "true");
                 document.getElementById("3Rd").setAttribute("hidden", "true");
                 document.getElementById("2Nd").setAttribute("hidden", "true");
@@ -105,7 +105,7 @@ function search_results() {
             let myStud = students.filter(student => student.id === inputID);
             let myLevel = myStud[0].level;
             if (myStud.length > 0) {
-                if (myLevel < 2) {
+                if (myLevel <= 2) {
                     return;
                 }
                 let tr = document.createElement("tr");
