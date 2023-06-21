@@ -76,7 +76,7 @@ def departAssignEdit(request):
             student.department = department
             student.save()
             return HttpResponse(f"Student assigned successfully to {department} department\n")
-        elif student.level < 2:
+        elif student.level <= 2:
             return HttpResponse("Student level is less than 2")
         elif Student.objects.filter(id=student_id).exists() is False:
             return HttpResponse("Student does not exist")
