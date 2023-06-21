@@ -36,7 +36,7 @@ function getCSRFToken() {
 }
 
 function changeactivity(id) {
-    var c = confirm("Are you sure you want to change the activity?");
+    var c = confirm("Are you sure you want to change the status of student: "+id);
 
     if (c) {
         var statusElement = document.getElementById(`status_${id}`);
