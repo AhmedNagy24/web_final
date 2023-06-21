@@ -18,6 +18,7 @@ function search_student() {
                 printMessage('msg-container', 'Student found successfully!');
             } else {
                 printAlert('msg-container', 'Student not found!');
+                givenID=null;
             }
         })
         .catch(error => {
@@ -78,6 +79,9 @@ $(document).on('submit', '#form', function (e) {
 })
 $(document).on('click', '#delete-student', function (e) {
     e.preventDefault()
+    if (givenID===null){
+        return;
+    }
     let check = confirm("Are sure you want to delete student: " + givenID)
     if (!check) {
         return
