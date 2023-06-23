@@ -2,20 +2,16 @@ function fetchData() {
   fetch('/get_data/')
     .then(response => response.json())
     .then(data => {
-      // Split data into active and inactive students
       const activeStudents = data.filter(student => student.status === 'active');
       const inactiveStudents = data.filter(student => student.status === 'inactive');
 
-      // Display active students in the activeTable
       const activeTable = document.getElementById('activeTable');
       activeTable.innerHTML = generateTableHTML1(activeStudents);
 
-      // Display inactive students in the inActiveTable
       const inactiveTable = document.getElementById('inActiveTable');
       inactiveTable.innerHTML = generateTableHTML2(inactiveStudents);
     })
     .catch(error => {
-      // Handle any errors
       console.error('Error:', error);
     });
 }

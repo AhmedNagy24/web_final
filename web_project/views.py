@@ -136,6 +136,7 @@ def delete_student(request):
         Student.objects.get(id=id_num).delete()
         return HttpResponse("Student deleted successfully!")
 
+
 @csrf_exempt
 def change_status(request):
     if request.method == 'POST':
@@ -155,4 +156,4 @@ def change_status(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
 
-    return JsonResponse({'error': 'Invalid request method'},status=405)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)

@@ -9,40 +9,6 @@ levelField.onchange = function () {
     }
 };
 
-
-/*
-function printMessage(error) {
-    let message = document.getElementById('message');
-    let errorMessage = error
-    if (errorMessage === "Student added successfully!") {
-        message.style.backgroundColor = 'green'; // set message color to red
-        message.innerHTML = errorMessage;
-        message.removeAttribute('hidden');
-        setTimeout(function () {
-            message.innerHTML = '';
-            message.setAttribute('hidden', 'true');
-        }, 5000);
-    } else if (errorMessage === "The student already exists in the active list.") {
-        message.style.backgroundColor = 'red'; // set message color to red
-        message.innerHTML = errorMessage;
-        message.removeAttribute('hidden');
-        setTimeout(function () {
-            message.innerHTML = '';
-            message.setAttribute('hidden', 'true');
-        }, 5000);
-    } else if (errorMessage === "The student already exists in the inactive list.") {
-        message.style.backgroundColor = 'red'; // set message color to red
-        message.innerHTML = errorMessage;
-        message.removeAttribute('hidden');
-        setTimeout(function () {
-            message.innerHTML = '';
-            message.setAttribute('hidden', 'true');
-        }, 5000);
-    }
-
-}
-
-*/
 let message = ""
 
 $(document).on('submit', '#form', function (e) {

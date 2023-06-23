@@ -162,6 +162,12 @@ searchBtn1.addEventListener("click", (x) => {
     search_results();
     search_to_assign();
 });
+searchBtn1.addEventListener('keydown', function (event) {
+    if (event.key === "Enter") {
+        search_results();
+        search_to_assign();
+    }
+});
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
     $.ajax({

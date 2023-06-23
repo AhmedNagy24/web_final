@@ -4,8 +4,9 @@ function serachForNames() {
         .then(data => {
             const activeStudents = data.filter(student => student.status === 'active' || student.status === 'Active');
             const name = document.getElementById('search').value;
-            let myStudents = activeStudents.filter(student => student.firstname.toLocaleLowerCase() === name.toLocaleLowerCase());
-            console.log(name);
+            let adjustedName=name.trim();
+            console.log(adjustedName);
+            let myStudents = activeStudents.filter(student => student.firstname.toLocaleLowerCase() === adjustedName.toLocaleLowerCase());
             const table = document.getElementById('student_data');
             if (myStudents.length === 0) {
                 let msg = document.getElementById('message');

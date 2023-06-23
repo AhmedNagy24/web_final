@@ -113,7 +113,6 @@ function search_results() {
     y.setAttribute('id', 'student_data');
     let tab = document.getElementById('data');
     tab.append(y);
-    let check = true;
     let inputID = document.getElementById("search_bar_assign").value;
     fetch('/get_data/')
         .then(response => response.json())
@@ -122,7 +121,7 @@ function search_results() {
             let myStud = students.filter(student => student.id === inputID);
             let myLevel = myStud[0].level;
             let myGPA = myStud[0].GPA;
-            if (myStud.length > 0 && myStud[0].GPA>= 2) {
+            if (myStud.length > 0 && myGPA>= 2) {
                 if (myLevel <= 2) {
                     return;
                 }
@@ -145,21 +144,8 @@ function search_results() {
                 let z = document.getElementById('student_data');
                 z.append(tr);
                 body = tr;
-                check = false;
             }
 
-            /*if (check) {
-                let msg = document.getElementById('message');
-                msg.style.backgroundColor = "red";
-                msg.removeAttribute("hidden");
-                msg.style.backgroundColor = "red";
-                msg.append("Student is not found");
-                setTimeout(function () {
-                    msg.innerHTML = '';
-                    msg.setAttribute('hidden', 'true');
-                }, 5000);
-
-            }*/
 
         })
         .catch(error => {
@@ -176,6 +162,7 @@ searchBtn1.addEventListener("click", (x) => {
     search_results();
     search_to_assign();
 });
+
 $(document).on('click', '#submit_button', function (e) {
     e.preventDefault();
     $.ajax({
